@@ -513,18 +513,17 @@ header {
 
 .newsletter-form input {
     padding: 10px;
+    padding-left: 20px;
     font-size: 1rem;
-    border: 1px solid #dbdada;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     outline: none;
     font-family: "Outfit", sans-serif;
     flex-grow: 1; /* Ensures the input takes up available space */
+    box-shadow: 0px 2px 4px #00000017;
+    border: none;
 }
 
-.newsletter-form input:focus {
-    border-color: #007bff;
-}
 
 .newsletter-form button {
     padding: 11px 21px;
@@ -536,6 +535,8 @@ header {
     border-bottom-right-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s;
+    box-shadow: 0px 2px 4px #00000017;
+
 }
 
 .newsletter-form button:hover {
@@ -699,8 +700,8 @@ header {
         width: 100%;
     }
     .products-section .product img{
-        width: 320px;
-        height: 340px;
+        width: 360px;
+        height: 380px;
     }
   }
 @media screen and (max-width: 710px){
@@ -729,8 +730,11 @@ header {
     }
 }
 
-@media screen and (max-width: 480px){
-
+@media screen and (max-width: 434px){
+    .products-section .product img{
+        width: 330px;
+        height: 350px;
+    }
 }
 
 @media screen and (max-width: 400px){
