@@ -514,7 +514,7 @@ header {
 .newsletter-form input {
     padding: 10px;
     font-size: 1rem;
-    border: 1px solid #ccc;
+    border: 1px solid #dbdada;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
     outline: none;
@@ -530,7 +530,7 @@ header {
     padding: 11px 21px;
     font-size: 1rem;
     color: #fff;
-    background-color: #007bff;
+    background-color: #3c8cc9;
     border: none;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
@@ -539,7 +539,7 @@ header {
 }
 
 .newsletter-form button:hover {
-    background-color: #0056b3;
+    background-color: #277ec1;
 }
 
   /*---------------------------------------/
@@ -694,7 +694,15 @@ header {
       flex: none;
     }
   }
-
+  @media screen and (max-width: 656px){
+    .products-section{
+        width: 100%;
+    }
+    .products-section .product img{
+        width: 320px;
+        height: 340px;
+    }
+  }
 @media screen and (max-width: 710px){
     .moving-text {
         display: grid;
@@ -714,6 +722,7 @@ header {
     }
     .newsletter-form {
         display: grid;
+        gap: 15px;
     }
     .newsletter-form input,button {
         border-radius: 30px;
@@ -723,3 +732,20 @@ header {
 @media screen and (max-width: 480px){
 
 }
+
+@media screen and (max-width: 400px){
+
+    .products-section .product img{
+        width: 290px;
+        height: 310px;
+    }
+
+  }
+  @media screen and (max-width: 366px){
+
+    .products-section .product img{
+        width: 250px;
+        height: 270px;
+    }
+
+  }
