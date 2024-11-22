@@ -46,6 +46,8 @@ h6 ,button{
 }
 .login-section form  h3{
     margin-bottom: 20px;
+    color: #3c8cc9;
+
 }
 .login-section form div{
     display: grid;
