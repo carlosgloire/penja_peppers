@@ -1,0 +1,102 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Outfit", sans-serif;
+    font-style: normal;
+    position: relative;
+    font-size: 1.2rem;
+    font-weight: 200;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+}
+/*---------------------------------------/
+#Titles
+/---------------------------------------*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 ,button{
+    font-family: "Montserrat", sans-serif;
+
+}
+.login-section{
+    display: grid;
+    place-items: center; /* Centers content horizontally and vertically */
+    background-color: #f9f9f9;
+    padding: 30px;
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+}
+.login-section form {
+    display: grid;
+    box-shadow: 0px 2px 4px #00000017;
+    padding: 40px;
+    width: 38%;
+    border-radius: 8px;
+}
+.login-section form  h3{
+    margin-bottom: 20px;
+}
+.login-section form div{
+    display: grid;
+    gap: 12px;
+
+}
+.login-section form div input{
+    padding: 10px;
+    padding-left: 20px;
+    font-size: 1rem;
+    border-radius: 30px;
+    outline: none;
+    font-family: "Outfit", sans-serif;
+    box-shadow: 0px 2px 4px #00000017;
+    border: none;
+    width: 100%;
+    font-weight: 200;
+}
+.login-section form div .button{
+    color: #3c8cc9;
+    cursor: pointer;
+    font-weight: 400;
+}
+.login-section form div .forgot a{
+    text-decoration: none;
+    color: #3c8cc9;
+}
+@media screen and (max-width:975px) {
+    .login-section form{
+        width: 45%;
+    }
+}
+
+@media screen and (max-width:759px) {
+    .login-section form{
+        width: 60%;
+    }
+}
+@media screen and (max-width:627px) {
+    .login-section form{
+        width: 90%;
+    }
+    .login-section{
+        padding: 20px;
+    }
+}
+@media screen and (max-width:435px) {
+    .login-section form{
+        width: 98%;
+    }
+    .login-section{
+        padding: 15px;
+    }
+}

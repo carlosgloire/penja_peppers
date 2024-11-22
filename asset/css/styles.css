@@ -302,7 +302,38 @@ header {
     background-color: #3c8cc9;
     border: 1px solid #3c8cc9;
 }
+/*---------------------------------------/
+#About us
+/---------------------------------------*/
+.about-us {
+    padding: 30px;
+    padding-left: 40px;
+    padding-right: 40px;
+    background-color: #f9f9f9;
+    width: 100%;
+    padding-top: 150px;
+}
 
+.about-us .container {
+    margin: 0 auto;
+}
+.container .column{
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px #00000017;
+    padding: 20px;
+}
+.about-us h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+.about-us .paragraphs {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
 /*---------------------------------------/
 #Why to choose us 
 /---------------------------------------*/
@@ -527,7 +558,7 @@ header {
 
 
 .newsletter-form button {
-    padding: 11px 21px;
+    padding: 10.5px 20.5px;
     font-size: 1rem;
     color: #fff;
     background-color: #3c8cc9;
@@ -713,6 +744,16 @@ header {
         height: 380px;
     }
   }
+  @media screen and (max-width: 778px){
+    .paragraphs{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .about-us{
+        padding-left: 20px;
+    padding-right: 20px;
+    }
+}   
 @media screen and (max-width: 710px){
     .moving-text {
         display: grid;
