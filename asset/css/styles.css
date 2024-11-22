@@ -762,6 +762,9 @@ header {
     header .nav-links {
         top:140px;
     }
+    .products-section{
+        padding-top: 150px;
+    }
 }
 
 @media screen and (max-width: 532px){
