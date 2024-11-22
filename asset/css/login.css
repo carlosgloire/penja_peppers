@@ -88,10 +88,10 @@ h6 ,button{
 }
 @media screen and (max-width:627px) {
     .login-section form{
-        width: 90%;
+        width: 95%;
     }
     .login-section{
-        padding: 20px;
+        padding: 10px;
     }
 }
 @media screen and (max-width:435px) {
