@@ -762,9 +762,8 @@ header {
     header .nav-links {
         top:140px;
     }
-    .products-section{
-        padding-top: 150px;
-        border: 1px solid red;
+    .products-section h3{
+       margin-top: 30px;
     }
 }
 
