@@ -28,7 +28,9 @@ h6 ,button{
     font-family: "Montserrat", sans-serif;
 
 }
-
+h3{
+    color: #3c8cc9;
+ }
 /* Top Bar */
 .top-bar {
     background-color: white;
@@ -95,8 +97,8 @@ header {
 }
 
 .logo img{
-    filter: invert(1) brightness(5);
-    height: 50px;
+    /*filter: invert(1) brightness(5);*/
+    height: 60px;
     width: auto;
 }
 
@@ -526,7 +528,7 @@ header {
 .newsletter-section h3 {
     font-weight: 600;
     margin-bottom: 10px;
-    color: #333;
+
 }
 
 .newsletter-section p {
@@ -587,7 +589,6 @@ header {
   .penja-peppers-section h3 {
     font-weight: 600;
     margin-bottom: 10px;
-    color: #333;
     text-align: center;
   }
   
@@ -674,10 +675,7 @@ header {
     border-radius: 8px;
     text-align: center;
 }
-.features .feature i{
-    color: #3c8cc9;
-    font-size: 1.5rem;
-}
+
 
   /*---------------------------------------/
 #Responsive Design
