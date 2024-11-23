@@ -201,7 +201,18 @@ header {
     color: #333;
     margin-left: 10px;
 }
-
+/*user profile*/
+.profile p img{
+    border-radius: 50%;
+}
+.profile p{
+    border-radius: 50%;
+    border: 2px solid #fff;
+    width: 33px;
+    height: 33px;
+    margin-left: 10px;
+    cursor: pointer;
+}
 /*---------------------------------------/
 #Home page
 /---------------------------------------*/
@@ -694,8 +705,9 @@ header {
         width: 100%;
         flex-direction: column;
         align-items: flex-start;
-        gap: 0px;
-        -webkit-column-gap: 0px;
+        gap: 15px;
+        -webkit-column-gap: 15px;
+        padding-top: 20px;
         padding-left: 30px;
         height: 60vh;
         background-color: #fff;

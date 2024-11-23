@@ -1,45 +1,124 @@
-   <!-- Features Section -->
-   <section class="features">
-    <div class="feature">
-        <i class="fas fa-shipping-fast"></i>
-        <div>
-            <h4>Free Shipping Worldwide</h4>
-            <p>Enjoy fast and reliable delivery to any corner of the globe at no extra cost.</p>
-        </div>
-    </div>
-    <div class="feature">
-        <i class="fas fa-headset"></i>
-        <div>
-            <h4>24/7 Customer Service</h4>
-            <p>We’re here to help anytime, day or night. Contact us for quick support.</p>
-        </div>
-    </div>
-    <div class="feature">
-        <i class="fas fa-money-bill-wave"></i>
-        <div>
-            <h4>Money Back Guarantee</h4>
-            <p>Shop with confidence! Get a full refund if you’re not completely satisfied.</p>
-        </div>
-    </div>
-</section>
-<!-- About Us Section -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sliding Tab Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      background-color: #f4f4f4;
+      padding: 10px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 2px solid #ccc;
+    }
+    .tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #333;
+      position: relative;
+      transition: color 0.3s;
+    }
+    .tab.active {
+      color: #007BFF;
+    }
+    .tab.active::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: #007BFF;
+    }
+    .content {
+      display: none;
+      padding: 20px;
+      animation: slideIn 0.5s ease-in-out;
+    }
+    .content.active {
+      display: block;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .gallery img, .gallery video {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(50%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="tabs">
+    <div class="tab active" id="chocolateTab">Photos</div>
+    <div class="tab" id="peppersTab">Videos</div>
+  </div>
 
-<section class="about-us">
-    <div class="container">
-        <h3>ABOUT US</h3>
-        <div class="paragraphs">
-            <div class="column">
-                <p>Penja Peppers is much more than just a peppers company. Founded in Rwanda but renowned as the leading supplier of Penja peppers in Cameroon, this company embodies a harmonious blend of business innovation, respect for tradition, and socio-economic development.</p>
-                <p>At the core of their operations lies an unwavering passion for quality. Their Penja peppers, cultivated in the eponymous region of Cameroon, are known for their unique aroma and exceptional flavor. Penja Peppers is committed to maintaining these high standards by ensuring that every step of production, from cultivation to packaging, is carried out with the utmost care.</p>
-                <p>The company also embraces an ethical business model. As a Rwandan-based enterprise, Penja Peppers strives to promote fair trade and sustainability in all its operations. They work closely with local farmers in Cameroon, providing technical and financial support to improve agricultural practices and ensure fair working conditions.</p>
-            </div>
-            <!-- Styled Vertical Line -->
-            <div class="styled-line"></div>
-            <div class="column">
-                <p>In addition to their commitment to quality and ethics, Penja Peppers is a driver of economic development in the regions where it operates. By investing in local communities, creating jobs, and supporting development initiatives, they actively contribute to improving the livelihoods of residents and strengthening economic empowerment.</p>
-                <p>Lastly, Penja Peppers embodies an African success story. By combining local expertise with a global entrepreneurial vision, they have successfully captured international markets while remaining true to their African roots. Their story is an inspiring example of what innovation and determination can achieve in the business arena in Africa.</p>
-                <p>In summary, Penja Peppers is not just a renowned peppers supplier, but a company that embodies the values of quality, ethics, and socio-economic development. With their ongoing commitment to excellence and positive impact on local communities, they are sure to continue thriving and inspiring other businesses across Africa and beyond.</p>
-            </div>
-        </div>    
+  <div class="content active" id="chocolateContent">
+    <h2>Photo Gallery</h2>
+    <div class="gallery">
+      <img src="https://via.placeholder.com/300" alt="Photo 1">
+      <img src="https://via.placeholder.com/300" alt="Photo 2">
+      <img src="https://via.placeholder.com/300" alt="Photo 3">
     </div>
-</section>
+  </div>
+
+  <div class="content" id="peppersContent">
+    <h2>Video Gallery</h2>
+    <div class="gallery">
+      <video controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <video controls>
+        <source src="https://www.w3schools.com/html/movie.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <script>
+    const chocolateTab = document.getElementById('chocolateTab');
+    const peppersTab = document.getElementById('peppersTab');
+    const chocolateContent = document.getElementById('chocolateContent');
+    const peppersContent = document.getElementById('peppersContent');
+
+    chocolateTab.addEventListener('click', () => {
+      chocolateTab.classList.add('active');
+      peppersTab.classList.remove('active');
+      chocolateContent.classList.add('active');
+      peppersContent.classList.remove('active');
+    });
+
+    peppersTab.addEventListener('click', () => {
+      peppersTab.classList.add('active');
+      chocolateTab.classList.remove('active');
+      peppersContent.classList.add('active');
+      chocolateContent.classList.remove('active');
+    });
+  </script>
+</body>
+</html>
