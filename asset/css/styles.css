@@ -66,7 +66,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px 10px 30px;
+    padding: 5px 30px 5px 30px;
     box-shadow: 0px 2px 4px #313131d7;
 
    
@@ -98,8 +98,9 @@ header {
 
 .logo img{
     /*filter: invert(1) brightness(5);*/
-    height: 60px;
+    height: 70px;
     width: auto;
+
 }
 
   /* Search Input and Icon */
