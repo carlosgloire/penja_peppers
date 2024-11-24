@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>Products</title>
     <link rel="icon" href="asset/images/logo.png" type="image/png" sizes="16x16">
-    <link rel="stylesheet" href="../asset//css/styles.css">
+    <link rel="stylesheet" href="../asset/css/styles.css">
+    <link rel="stylesheet" href="../asset/css/cart.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -18,6 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+
      <!-- Top Bar -->
      <section class="header">
         <div class="top-bar">
@@ -32,8 +34,9 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="../">Home</a></li>
+                    <li><a href="about.html">About us</a></li>
                     <li><a href="blog.html">Blog</a></li>
-                    <li><a href="pages/products.html">Products</a></li>
+                    <li><a href="products.html">Products</a></li>
                     <li><a href="categories.html">Categories</a></li>
                     <li><a href="contact.html">Contact us</a></li>
                 </ul>
@@ -47,7 +50,7 @@
                 <div class="cart-list">
                     <a class="cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
                     <span>10</span>
-                </div>                
+                </div>
                 <div class="indicator">
                     <div class="profile">
                         <p><a style="display: flex;" href="userDashboard.html"><img src="../asset/images/Gloire.png" alt="" width="30px" height="30px"><i style="margin-top: 10px;" class="bi bi-three-dots-vertical"></i></a></p>
@@ -81,33 +84,78 @@
             </div>
         </header>
      </section>
+     <section class="cart-section">
+             <h3>Cart</h3>
+     <p style="font-size: 17px;">In this section you can view all your orders! You can explore them, delete the ones you don’t need or increase the quantity. It’s easy to manage everything in one place!</p>
+     <div class="our-cart-prod">
+         <p style="text-align: right;font-size: 16px;margin-right: 10px;">24/11/2024</p>
+         <div class="order-prod">
+             <div>
+                 <p><img src="../asset/images/products/11.png" alt=""></p>
+             </div>
+             <div>
+                 <h4>Product name</h4>
+                 <span>Kola</span>
+             </div>
+             <div>
+                 <h4>Price</h4>
+                 <span>$10</span>
+             </div>
 
-<!-- About Us Section -->
+             <div>
+                 <h4>Quantity selected</h4>
+                 <input  type="number" value="20">
+             </div>
+             <div class="delete">
+                 <button title="Delete order item"><i class="bi bi-trash3"></i> </button>
+                 <a href="#" title="Edit order item">
+                   <i class="bi bi-pen"></i> 
+                 </a>
+             </div>
+         </div>
 
-<section class="about-us" >
-    <div class="container">
-        <h3>About Us</h3>
-        <div class="paragraphs">
-            <div class="column">
-                <p>Penja Peppers is much more than just a peppers company. Founded in Rwanda but renowned as the leading supplier of Penja peppers in Cameroon, this company embodies a harmonious blend of business innovation, respect for tradition, and socio-economic development.</p>
-                <p>At the core of their operations lies an unwavering passion for quality. Their Penja peppers, cultivated in the eponymous region of Cameroon, are known for their unique aroma and exceptional flavor. Penja Peppers is committed to maintaining these high standards by ensuring that every step of production, from cultivation to packaging, is carried out with the utmost care.</p>
-                <p>The company also embraces an ethical business model. As a Rwandan-based enterprise, Penja Peppers strives to promote fair trade and sustainability in all its operations. They work closely with local farmers in Cameroon, providing technical and financial support to improve agricultural practices and ensure fair working conditions.</p>
-            </div>
+         <div class="price">
+             <h4>Total price</h4>
+             <span>$200</span>
+         </div>
+     </div>
+     <div class="our-cart-prod">
+         <div class="order-prod">
+             <div>
+                 <p><img src="../asset/images/products/10.png" alt=""></p>
+             </div>
+             <div>
+                 <h4>Product name</h4>
+                 <span>Ok Ginger</span>
+             </div>
+             <div>
+                 <h4>Price</h4>
+                 <span>$10</span>
+             </div>
 
-            <div class="column">
-                <p>In addition to their commitment to quality and ethics, Penja Peppers is a driver of economic development in the regions where it operates. By investing in local communities, creating jobs, and supporting development initiatives, they actively contribute to improving the livelihoods of residents and strengthening economic empowerment.</p>
-                <p>Lastly, Penja Peppers embodies an African success story. By combining local expertise with a global entrepreneurial vision, they have successfully captured international markets while remaining true to their African roots. Their story is an inspiring example of what innovation and determination can achieve in the business arena in Africa.</p>
-                <p>In summary, Penja Peppers is not just a renowned peppers supplier, but a company that embodies the values of quality, ethics, and socio-economic development. With their ongoing commitment to excellence and positive impact on local communities, they are sure to continue thriving and inspiring other businesses across Africa and beyond.</p>
-            </div>
-        </div>    
-    </div>
-</section>
-<footer>
-    <div class="writer">
-        &copy;  2024<!-- <?= date("Y") ?>--> Penja Peppers. All rights reserved.  Developed by SoftCreatix/General consulting group ltd 
-    </div>
-    <a href="">Terms of use and privacy policy</a>
-</footer>
-<script src="../asset/javascript/app.js"></script>
+             <div>
+                 <h4>Quantity selected</h4>
+                 <input  type="number" value="20">
+             </div>
+             <div class="delete">
+                 <button title="Delete order item"><i class="bi bi-trash3"></i> </button>
+                 <a href="#" title="Edit order item">
+                   <i class="bi bi-pen"></i> 
+                 </a>
+             </div>
+         </div>
+
+         <div class="price">
+             <h4>Total price</h4>
+             <span>$200</span>
+         </div>
+     </div>
+     <p style="text-align: right;font-weight: 400;">Total order price : 400$</p>
+     <div class="our-buttons ">
+        <button type="submit" name="update_cart" class="continue-shopping">Update cart</button>
+        <a href="" class="order-now">Order now</a>
+     </div>
+     </section>
+    <script src="../asset/javascript/app.js"></script>
 </body>
 </html>

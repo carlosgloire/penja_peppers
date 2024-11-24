@@ -1,0 +1,122 @@
+
+/*---------------------------------------/
+#Contacts
+/---------------------------------------*/
+
+.contact {
+    padding: 20px 100px 50px 100px;
+    padding-top: 130px;
+    height: 80vh;
+}
+
+.contact .contact-info .info {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    align-items: center;
+    -webkit-column-gap: 10px;
+
+}
+
+.contact .contact-info .info div {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact .contact-info .info div a {
+    color: #000;
+    text-decoration: none;
+}
+
+.contact .contact-info .info i {
+    padding: 12px 15px;
+    color: #3498db;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: inset 13px 13px 26px #e3e3e3, inset -13px -13px 26px #ffffff;
+}
+
+.contact .contact-container {
+    display: flex;
+    gap: 40px;
+    -webkit-column-gap: 40px;
+    margin-top: 40px;
+}
+
+.contact input,
+textarea {
+    outline: none;
+    padding: 15px 15px;
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid #cecece94;
+    font-family: "Poppins", sans-serif;
+}
+
+.contact .contact-input {
+    width: 100%;
+}
+
+.contact .contact-input div {
+    display: flex;
+    gap: 10px;
+    -webkit-column-gap: 10px;
+}
+
+.contact .contact-input button {
+    font-family: "Poppins", sans-serif;
+    border: none;
+    outline: none;
+    background: unset;
+    width: fit-content;
+    color: #fff;
+    margin: auto;
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: 30px;
+    background-color:  #3498db;
+    transition-delay: 0.4s;
+    transition: 0.8s ease-in-out;
+    cursor: pointer;
+
+}
+
+.contact .contact-input button:hover {
+    opacity: 0.8;
+}
+
+
+
+/* Media query */
+@media screen and (max-width: 980px){
+    .contact {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
+@media screen and (max-width: 710px){
+    .contact {
+        padding-top: 160px;
+    }
+}
+@media screen and (max-width: 780px){
+    .contact .contact-container{
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 512px){
+    .contact .contact-input div{
+        display: flex;
+        gap: 0;
+        -webkit-column-gap: 0px;
+
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 410px){
+    .contact {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}

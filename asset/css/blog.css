@@ -1,0 +1,207 @@
+.articles-section{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+/* Blog Container */
+.blog-container {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 140px;
+}
+
+/* Individual Blog Post */
+.blog-post {
+    width: 48%;
+    max-width: 900px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    display: block;
+    margin: 0 auto;
+    box-sizing: border-box; /* Add this line */
+    margin-bottom: 20px;
+}
+
+.blog-post  h3{
+    color:#3c8cc9;
+    margin-bottom: 10px;
+
+}
+.blog-post .title{
+    text-align: center;
+}
+.blog-post img{
+    display: block;
+    margin: 0 auto;
+    width: 350px;
+    height: 400px;
+    object-fit: cover;
+}
+.blog-post p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Like Button */
+.like-button {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1em;
+    color: #2b92ff;
+    outline: none;
+    padding: 0;
+    margin-right: 10px;
+    transition: color 0.3s;
+}
+
+.like-button.liked {
+    color: #2b92ff;
+}
+
+.like-count {
+    margin-right: 10px;
+}
+.share-button {
+    background-color: initial;
+    color:  #007bff;
+    border: none;
+    padding: 8px 16px;
+    margin-left: 10px;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+
+.share-button i {
+    margin-right: 8px;
+}
+
+/* Comment Section */
+.comment-section {
+    margin-top: 20px;
+}
+
+.comment-section h3 {
+    margin-bottom: 10px;
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comments {
+    margin-top: 10px;
+}
+
+.comment {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f4f4f498;
+    border-radius: 4px;
+}
+
+.comment span {
+    font-weight:400;
+}
+
+/* Comment Form */
+.comment-form {
+    width: 100%; /* Ensure form takes full width */
+}
+
+.comment-form textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box; /* Add this line */
+}
+
+.comment-form button {
+    background-color: #2b92ff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: "Poppins", sans-serif;
+}
+
+.comment-form button:hover {
+    background-color: #007bff;
+}
+
+/* Hidden Comments */
+.hidden {
+    display: none;
+}
+
+/* Toggle Comments Button */
+.toggle-comments {
+    cursor: pointer;
+    font-size: 0.9em;
+    color: #2b92ff;
+    border: none;
+    background: none;
+    outline: none;
+    transition: color 0.3s;
+    font-family: "Poppins", sans-serif;
+}
+
+.toggle-comments:hover {
+    color: #007bff;
+}
+@media screen and (max-width: 806px) {
+    .articles-section{
+        display: grid;
+        width: 100%;
+        padding: 20px;
+    }
+    .blog-post {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 710px) {
+    .blog-container {
+        padding-top: 160px;
+    }
+}
+@media screen and (max-width: 515px) {
+    .blog-post {
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 435px){
+    .blog-post img{
+        width: 300px;
+        height: 350px;
+    }
+}
+
+@media screen and (max-width: 387px){
+    .blog-post img{
+        width: 250px;
+        height: 300px;
+    }
+}

@@ -1,0 +1,106 @@
+/*-----------------------------------/
+#Cart
+/-----------------------------------*/
+.cart-section{
+    padding: 30px;
+    padding-top: 130px;
+    text-align: center;
+}
+
+.our-cart-prod {
+    margin-top: 10px;
+}
+
+.order-prod {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 1rem;
+    justify-content: space-between;
+    box-shadow: 0px 1px 10px #e2e2e2a7;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.order-prod div {
+    text-align: center;
+}
+
+.order-prod div span {
+    color: #9a9a9a;
+}
+.order-prod div h4{
+    font-weight: 600;
+}
+.order-prod img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+
+}
+.order-prod div input{
+    width: 60px;
+    outline: none;
+    padding-left: 10px;
+    border-radius: 5px;
+    border: 1px solid #3c8cc9;
+    font-family: "Outfit", sans-serif;
+    font-size: 1rem;
+    font-weight: 200;
+}
+.delete{
+    display: grid;
+    gap: 10px;
+    padding-right: 20px;
+}
+.delete button {
+    border: none;
+    background-color: white;
+    color: #a35454;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+.delete a{
+    color: #3c8cc9;
+    font-size: 1.2rem;
+}
+.price {
+    display: flex;
+    margin-left: auto;
+    flex-direction: column;
+    color: #141b1fda;
+    width: fit-content;
+    text-align: right;
+    padding: 3px 30px;
+    margin-top: -35px;
+    text-align: center;
+    background-color: #ffff;
+    box-shadow: 0px 1px 10px #e2e2e2a7;
+    margin-right: 20px;
+    border-radius: 5px;
+    font-size: 17px;
+}
+.price h4{
+    font-weight: 600;
+}
+.our-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+    -webkit-column-gap: 10px;
+}
+
+.our-buttons button , .order-now{
+    border: none;
+    color: #fff;
+    padding: 5px 20px;
+    border-radius: 25px;
+    background-color: #141b1fda;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+

@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us</title>
+    <title>Contact Us</title>
     <link rel="icon" href="asset/images/logo.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="../asset//css/styles.css">
+    <link rel="stylesheet" href="../asset/css/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -32,10 +33,10 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="../">Home</a></li>
+                    <li><a href="about.html">About us</a></li>
                     <li><a href="blog.html">Blog</a></li>
                     <li><a href="pages/products.html">Products</a></li>
                     <li><a href="categories.html">Categories</a></li>
-                    <li><a href="contact.html">Contact us</a></li>
                 </ul>
                
             </nav>
@@ -82,32 +83,51 @@
         </header>
      </section>
 
-<!-- About Us Section -->
-
-<section class="about-us" >
-    <div class="container">
-        <h3>About Us</h3>
-        <div class="paragraphs">
-            <div class="column">
-                <p>Penja Peppers is much more than just a peppers company. Founded in Rwanda but renowned as the leading supplier of Penja peppers in Cameroon, this company embodies a harmonious blend of business innovation, respect for tradition, and socio-economic development.</p>
-                <p>At the core of their operations lies an unwavering passion for quality. Their Penja peppers, cultivated in the eponymous region of Cameroon, are known for their unique aroma and exceptional flavor. Penja Peppers is committed to maintaining these high standards by ensuring that every step of production, from cultivation to packaging, is carried out with the utmost care.</p>
-                <p>The company also embraces an ethical business model. As a Rwandan-based enterprise, Penja Peppers strives to promote fair trade and sustainability in all its operations. They work closely with local farmers in Cameroon, providing technical and financial support to improve agricultural practices and ensure fair working conditions.</p>
+    <!-- Contacts -->
+    <section class="contact" id="contacts">
+        <div class="title">
+            <h3>Contactez-nous</h3>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="info">
+                    <i class="bi bi-geo"></i>
+                    <div>
+                        <span>Localisation</span>
+                        <p>KN 4 Av 22,KIGALI - RWANDA</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <i class="bi bi-envelope"></i>
+                    <div>
+                        <span>Email</span>
+                        <a href="mailto:contact@generalconsultinggroups.com">contact@generalconsultinggroups.com</a>
+                    </div>
+                </div>
+                <div class="info">
+                    <i class="bi bi-phone"></i>
+                    <div>
+                        <span>Téléphone</span>
+                        <a href="tel:+250123456789">+250798812499</a>
+                    </div>
+                </div>
             </div>
-
-            <div class="column">
-                <p>In addition to their commitment to quality and ethics, Penja Peppers is a driver of economic development in the regions where it operates. By investing in local communities, creating jobs, and supporting development initiatives, they actively contribute to improving the livelihoods of residents and strengthening economic empowerment.</p>
-                <p>Lastly, Penja Peppers embodies an African success story. By combining local expertise with a global entrepreneurial vision, they have successfully captured international markets while remaining true to their African roots. Their story is an inspiring example of what innovation and determination can achieve in the business arena in Africa.</p>
-                <p>In summary, Penja Peppers is not just a renowned peppers supplier, but a company that embodies the values of quality, ethics, and socio-economic development. With their ongoing commitment to excellence and positive impact on local communities, they are sure to continue thriving and inspiring other businesses across Africa and beyond.</p>
+            <div class="contact-input">
+                <form action="" method="post">
+                    <div>
+                        <input type="text" name="noms" placeholder="Votre nom">
+                        <input  type="email" name="email" placeholder="Votre email">
+                    </div>
+                    <input type="text" name="subject" placeholder="Titre du message">
+                    <textarea placeholder="Écrivez votre message..." name="message" id="" rows="5"></textarea>
+                    <div>
+                        <button type="submit" name="send">Envoyer le message</Blog>
+                    </div>
+                </form>
             </div>
-        </div>    
-    </div>
-</section>
-<footer>
-    <div class="writer">
-        &copy;  2024<!-- <?= date("Y") ?>--> Penja Peppers. All rights reserved.  Developed by SoftCreatix/General consulting group ltd 
-    </div>
-    <a href="">Terms of use and privacy policy</a>
-</footer>
+        </div>
+    </section>
 <script src="../asset/javascript/app.js"></script>
 </body>
-</html>
+</html>    
+   

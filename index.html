@@ -31,13 +31,15 @@
         <header>
             <div class="logo"><img src="asset/images/logo.png" alt=""></div>
             <nav>
+                
+                
                 <ul class="nav-links">
                     <li><a href="#">Home</a></li>
                     <li><a href="pages/about.html">About us</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="pages/blog.html">Blog</a></li>
                     <li><a href="pages/products.html">Products</a></li>
                     <li><a href="pages/categories.html">Categories</a></li>
-                    <li><a href="#">Contact us</a></li>
+                    <li><a href="pages/contact.html">Contact us</a></li>
                 </ul>
                
             </nav>
@@ -46,9 +48,36 @@
                     <input type="text" class="search-input" placeholder="Search...">
                     <i class="fas fa-search search-icon"></i>
                 </div>
-                <i class="fas fa-shopping-cart"></i>
-                <div class="profile">
-                    <p><a href="pages/userDashboard.html"><img src="../asset/images/Gloire.png" alt="" width="30px" height="30px"></a></p>
+                <div class="cart-list">
+                    <a class="cart" href="pages/cart.html"><i class="fas fa-shopping-cart"></i></a>
+                    <span>10</span>
+                </div>
+                
+                <div class="indicator">
+                    <div class="profile">
+                        <p><a style="display: flex;" href="pages/userDashboard.html"><img src="../asset/images/Gloire.png" alt="" width="30px" height="30px"><i style="margin-top: 10px;" class="bi bi-three-dots-vertical"></i></a></p>
+                    </div>
+                    <div class="dashboard-user">
+                        <a href="pages/userDashboard.html">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <!-- Example static admin link -->
+                        <a href="../admin/">
+                            <i class="bi bi-clipboard-pulse"></i>
+                            <span>Administration</span>
+                        </a>
+                        <a href="pages/profile.html">
+                            <i class="bi bi-person-check"></i>
+                            <span>My profile</span>
+                        </a>
+                        <a   style="display: flex;align-items:center;gap:5px;;">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <form action="" method="post" style="margin-top: -3px;">
+                                <button name="logout"><span>Log out</span></button>
+                            </form>
+                        </a>
+                    </div>
                 </div>
                 <div class="our-menu">
                     <i class="bi bi-list menu-icon"></i>
@@ -166,7 +195,7 @@
         <h3>Our Products</h3>
         <div class="product-container">
             <div class="product">
-                <img src="asset/images/products/1.jpg" alt="">
+                <a href="pages/product_detail.html"><img src="asset/images/products/1.jpg" alt=""></a>
                 <h4>chocolate</h4>
                 <div class="stars">
                     <div>
@@ -180,11 +209,11 @@
                 </div>
                 <div class="buy">
                     <p>$20</p>
-                    <a href="">Buy</a>
+                    <a href="pages/product_detail.html">Buy</a>
                 </div>
             </div>
             <div class="product">
-                <img src="asset/images/products/10.png" alt="">
+                <a href="pages/product_detail.html"><img src="asset/images/products/10.png" alt=""></a>
                 <h4>Ok Ginger</h4>
                 <div class="stars">
                     <div>
@@ -198,11 +227,11 @@
                 </div>
                 <div class="buy">
                     <p>$20</p>
-                    <a href="">Buy</a>
+                    <a href="pages/product_detail.html">Buy</a>
                 </div>
             </div>
             <div class="product">
-                <img src="asset/images/products/11.png" alt="">
+                <a href="pages/product_detail.html"><img src="asset/images/products/11.png" alt=""></a>
                 <h4>Kola</h4>
                 <div class="stars">
                     <div>
@@ -216,11 +245,11 @@
                 </div>
                 <div class="buy">
                     <p>$20</p>
-                    <a href="">Buy</a>
+                    <a href="pages/product_detail.html">Buy</a>
                 </div>
             </div>
             <div class="product">
-                <img src="asset/images/products/2.jpg" alt="">
+                <a href="pages/product_detail.html"><img src="asset/images/products/2.jpg" alt=""></a>
                 <h4>Mambo</h4>
                 <div class="stars">
                     <div>
@@ -234,7 +263,7 @@
                 </div>
                 <div class="buy">
                     <p>$20</p>
-                    <a href="">Buy</a>
+                    <a href="pages/product_detail.html">Buy</a>
                 </div>
             </div>
         </div>
@@ -260,7 +289,7 @@
           </div>
           <!-- Text Part -->
           <div class="text-container">
-            <h3>The Benefit of Penja Peppers</h3>
+            <h3>The Benefit of using our Peppers</h3>
             <p>
               <strong>Black peppers</strong> is an excellent natural remedy for gastrointestinal disorders. In fact, regular use in your dishes can help combat a number of problems such as:
             </p>
@@ -303,6 +332,12 @@
             </div>
         </div>
     </section>
+    <footer>
+        <div class="writer">
+            &copy;  2024<!-- <?= date("Y") ?>--> Penja Peppers. All rights reserved.  Developed by SoftCreatix/General consulting group ltd 
+        </div>
+        <a href="">Terms of use and privacy policy</a>
+    </footer>
     <script src="asset/javascript/app.js"></script>
 </body>
 </html>

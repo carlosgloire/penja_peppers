@@ -89,13 +89,40 @@ header {
     transition: 0.4s ease-in-out;
     font-weight: 300;
 }
+.header-icons{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .header-icons i {
     color: #fff;
-    margin-left: 15px;
-    font-size: 18px;
     cursor: pointer;
 }
+header .cart-list {
+    position: relative;
+}
 
+header .cart-list .cart {
+    font-size: 30px;
+    color: #fff;
+}
+
+header .cart-list span {
+    padding: 0px 5px;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    top: -1px;
+    right: -6px;
+    position: absolute;
+    color: #3c8cc9;
+    font-weight: 600;
+    background-color: #fff;
+
+}
+.fa-shopping-cart{
+    font-size: 1.5rem;
+    color: #fff;
+}
 .logo img{
     /*filter: invert(1) brightness(5);*/
     height: 70px;
@@ -108,6 +135,7 @@ header {
     position: relative;
     display: flex;
     align-items: center;
+    margin-top: 10px;
 }
 
 .header-icons{
@@ -156,7 +184,12 @@ header {
     visibility: visible;
 
 }
+.indicator i {
+    font-size: 1rem;
+    color: #fff;
+    font-weight: 400;
 
+}
 .search-icon {
     cursor: pointer;
     margin-left: 5px;
@@ -213,6 +246,56 @@ header {
     margin-left: 10px;
     cursor: pointer;
 }
+
+/*---------------------------------------/
+#Drop down profile
+/---------------------------------------*/
+.indicator .bi-person-circle {
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.dashboard-user {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    display: none;
+    flex-direction: column;
+    background-color: #fff;
+    margin-top: 100px;
+    margin-right: 30px;
+}
+
+.dashboard-user a {
+    color: #141b1fda;
+    padding: 15px 50px;
+    border: 1px solid #eaeaea;
+    transition-delay: 0.4s;
+    transition: 0.8s ease-in-out;
+    text-decoration: none;
+}
+
+.dashboard-user a:hover {
+    background-color: #eaeaea;
+}
+
+.indicator:hover .dashboard-user {
+    display: flex;
+}
+.dashboard-user a i {
+   color: #141b1fda;
+   font-size: 1rem;
+}
+.dashboard-user a span {
+    color: #141b1fda;
+ }
+ .dashboard-user button{
+    background-color: initial;
+    border: none;
+    font-size: 1rem;
+ }
 /*---------------------------------------/
 #Home page
 /---------------------------------------*/
@@ -333,12 +416,12 @@ header {
 }
 .container .column{
     border-radius: 10px;
-    box-shadow: 0px 2px 4px #00000017;
     padding: 20px;
+    text-align: justify;
 }
 .about-us h3 {
     text-align: center;
-    margin-bottom: 20px;
+
 }
 
 
@@ -689,6 +772,22 @@ header {
 }
 
 
+/*---------------------------------------/
+#Footer
+/---------------------------------------*/
+
+footer {
+    color: #fff;
+    padding: 20px 20px;
+    text-align: center;
+    background: #1f242df2;
+}
+footer a{
+    color: #3c8cc9;
+    text-decoration: none;
+    font-weight: 300;
+
+}
   /*---------------------------------------/
 #Responsive Design
 /---------------------------------------*/
@@ -820,3 +919,4 @@ header {
     }
 
   }
+
