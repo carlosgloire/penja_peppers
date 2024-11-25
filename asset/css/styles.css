@@ -751,6 +751,7 @@ header .cart-list span {
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
+    justify-content: center;
 }
 .features h3{
     text-align: center;
