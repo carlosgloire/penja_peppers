@@ -363,7 +363,7 @@ header .cart-list span {
     height: 100%;
     z-index: 2;
     pointer-events: none;
-    background: #141b1fda;
+    background: #141b1fb0;
 }
 
 .home-images .home-bg {
@@ -418,6 +418,10 @@ header .cart-list span {
     border-radius: 10px;
     padding: 20px;
     text-align: justify;
+}
+.container .column span{
+    color: #3c8cc9;
+    font-weight: 400;
 }
 .about-us h3 {
     text-align: center;
