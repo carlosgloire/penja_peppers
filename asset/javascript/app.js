@@ -80,3 +80,19 @@ document.addEventListener("DOMContentLoaded", () => {
         searchContainer.classList.toggle("active");
     });
 });
+
+
+
+// Toggle the reviews visibility
+function toggleReviews() {
+    const moreReviews = document.getElementById('more-reviews');
+    const button = document.getElementById('toggle-reviews');
+
+    if (moreReviews.style.display === 'none') {
+        moreReviews.style.display = 'block';
+        button.textContent = 'Show Less Reviews'; // Change button text to "Show Less Reviews"
+    } else {
+        moreReviews.style.display = 'none';
+        button.textContent = 'Show More Reviews'; // Change button text back to "Show More Reviews"
+    }
+}

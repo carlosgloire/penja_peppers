@@ -33,7 +33,8 @@ h6 ,button{
     display: grid;
     place-items: center; /* Centers content horizontally and vertically */
     background-color: #f9f9f9;
-    padding: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
     text-align: center;
     width: 100%;
     height: 100vh;
@@ -55,7 +56,7 @@ h6 ,button{
     gap: 12px;
 
 }
-.login-section form div input{
+.login-section form div input,select{
     padding: 10px;
     padding-left: 20px;
     font-size: 1rem;
@@ -67,6 +68,15 @@ h6 ,button{
     width: 100%;
     font-weight: 200;
 }
+textarea{
+    font-family: "Outfit", sans-serif;
+    border: 1px solid gray;
+    border-radius: 8px;
+    padding-left: 20px;
+    font-size: 1rem;
+    font-weight: 200;
+    outline: none;
+}
 .login-section form div .button{
     color: #3c8cc9;
     cursor: pointer;
@@ -75,6 +85,29 @@ h6 ,button{
 .login-section form div .forgot a{
     text-decoration: none;
     color: #3c8cc9;
+}
+.errors-management{
+    font-size: 1.1rem;
+}
+.errors-management .success{
+    color: green;
+}
+.errors-management .error{
+    color: red;
+}
+.continue_shopping{
+    color: #3c8cc9;
+    cursor: pointer;
+    font-weight: 400;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 1rem;
+    border-radius: 30px;
+    font-family: "Outfit", sans-serif;
+    box-shadow: 0px 2px 4px #00000017;
+    text-decoration: none;
+    background-color: #f5f5f5;
 }
 @media screen and (max-width:975px) {
     .login-section form{
