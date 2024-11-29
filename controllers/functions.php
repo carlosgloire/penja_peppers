@@ -122,13 +122,13 @@ function notconnected(){
 
 function notAdmin(){
     
-$db = new PDO("mysql:host=localhost;dbname=online_shoes_store", "root", "",
+$db = new PDO("mysql:host=localhost;dbname=penja_peppers", "root", "",
  [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
     $query = $db->prepare('SELECT role FROM users WHERE role =?');
     $query->execute(array($_SESSION['role']));
      
     if(($_SESSION['role']) != 'admin'){
-        header("Location: ../pages/");
+        header("Location: ../");
         exit();
     }
    
@@ -137,6 +137,7 @@ function logout(){
     if(isset($_POST['logout'])){
         unset($_SESSION['user']);
         unset($_SESSION['panier']);
+        unset( $_SESSION['role']);
         header('location:../');
         exit();
     }
@@ -147,14 +148,14 @@ function logout(){
 // Function to send email
 function sendStockAlertEmail($mysqli, $admin_email) {
     // Check if shoes have reached stock of 5 or less
-    $query = "SELECT * FROM shoes WHERE stock <= 5";
+    $query = "SELECT * FROM products WHERE stock <= 2";
     $result = $mysqli->query($query);
 
     if ($result->num_rows > 0) {
-        $mailer = require("../controllers/mail/mailer.php");
+        $mailer = require("mail/mailer.php");
 
         // Initialize variables for email content
-        $subject = "Alert: Shoe Stock Update";
+        $subject = "Alert: Product Stock Update";
         $email_body = <<<END
         <html>
         <head>
@@ -187,21 +188,21 @@ function sendStockAlertEmail($mysqli, $admin_email) {
         </head>
         <body>
             <div class="container">
-                <p><strong>Alert: Shoe Stock Update</strong></p>
+                <p><strong>Alert: Product Stock Update</strong></p>
 END;
 
         // Loop through shoes with stock 5 or less and append to email body
         while ($row = $result->fetch_assoc()) {
-            $shoe_name = $row['name'];
-            $shoe_stock = $row['stock'];
-            $shoeId = $row['shoe_id'];
-            $update_link = "http://localhost/onlineShoeStore/admin/editshoe.php?shoe_id=$shoeId";
+            $product_name = $row['name'];
+            $product_stock = $row['stock'];
+            $product_id = $row['product_id'];
+            $update_link = "http://localhost/penjapeppers/admin/edit_product.php?product_id=$product_id";
 
             $email_body .= <<<END
                 <div class="shoe">
-                    <p><strong>Shoe:</strong> $shoe_name</p>
-                    <p><strong>Current Stock:</strong> $shoe_stock</p>
-                    <p><a href="$update_link">Update Stock for $shoe_name</a></p>
+                    <p><strong>Product:</strong> $product_name</p>
+                    <p><strong>Current Stock:</strong> $product_stock</p>
+                    <p><a href="$update_link">Update Stock for $product_name</a></p>
                 </div>
 END;
         }
@@ -214,7 +215,7 @@ END;
         </html>
 END;
 
-        $mailer->setFrom('noreply@yourdomain.com', 'ONLINE SHOES STORING MANAGEMENT SYSTEM'); // Set a default sender
+        $mailer->setFrom('noreply@yourdomain.com', 'PENJA PEPPERS'); // Set a default sender
         $mailer->Subject = html_entity_decode($subject); // Decode HTML entities in subject
         $mailer->CharSet = 'UTF-8'; // Set charset to UTF-8
         $mailer->Body = $email_body;

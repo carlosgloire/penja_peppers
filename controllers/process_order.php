@@ -75,7 +75,7 @@ END;
     $_SESSION['order_id'] = $order_id;
 
     // Send email to admin
-    $admin_email = 'ndayisabarenzaho@gmail.com';
+    $admin_email = 'ndayisabagloire96@gmail.com';
     $subject = "New Order Placed by {$user['firstname']} {$user['lastname']}";
     $email_body = <<<END
     <html>

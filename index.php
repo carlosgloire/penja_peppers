@@ -6,6 +6,7 @@ function logout2(){
     if(isset($_POST['logout'])){
         unset($_SESSION['user']);
         unset($_SESSION['panier']);
+        unset( $_SESSION['role']);
         header('location:../penjapeppers/');
         exit();
     }
@@ -295,9 +296,9 @@ if (isset($_SESSION['user_id'])) {
         <div>
             <h3>Subscribe to Our Newsletter</h3>
             <p>Get the latest updates and offers directly in your inbox.</p>
-            <form class="newsletter-form">
-              <input type="email" placeholder="Enter your email address" required />
-              <button type="submit">Send</button>
+            <form class="newsletter-form" action="controllers/news-letter.php" method="post">
+              <input type="email" name="mail-newsLetter" placeholder="Enter your email address" required />
+              <button name="send-NewsLetter" type="submit">Send</button>
             </form>
         </div>
       </section>
@@ -362,3 +363,10 @@ if (isset($_SESSION['user_id'])) {
     <script src="asset/javascript/app.js"></script>
 </body>
 </html>
+<?php
+
+$database = require("controllers/mail/database.php");
+
+// Call the function to check stock and send email
+sendStockAlertEmail($database, 'ndayisabagloire96@gmail.com');
+?>

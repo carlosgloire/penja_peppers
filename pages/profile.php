@@ -91,7 +91,6 @@ if ($user) {
                 <p>Address: <?=$location_fetched?></p>
                 <button title="Delete my account" class="delete" id="open" name="delete" ><i class="bi bi-trash3"></i></button>
             </div>
-            <?=popup_delete_count($error)?>
             <div class="profile-edit">
               <form action="" action="" method="POST" enctype="multipart/form-data">
                   <h4>Edit My profile</h4>

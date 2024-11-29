@@ -52,6 +52,14 @@ if (isset($_SESSION['user_id'])) {
                 <i class="bi bi-dropbox"></i>
                 <a href="products.php">Products</a>
           </div>
+          <div>
+            <i class="bi bi-basket2-fill"></i>
+             <a href="orders.php">Orders</a>
+          </div>
+          <div >
+            <i class="bi bi-file-earmark-post"></i>
+            <a href="posts.php">Posts</a>
+          </div>
           <div >
                 <i class="bi bi-envelope"></i>
                 <a href="news-letter.php">News letter</a>

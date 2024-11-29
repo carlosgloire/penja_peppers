@@ -1,9 +1,10 @@
 <?php
-session_start();
-require_once('../controllers/database/db.php');
-require_once('../controllers/functions.php');
-notAdmin();
-logout();
+    session_start();
+    require_once('../controllers/database/db.php');
+    require_once('../controllers/send_news_letter.php');
+    require_once('../controllers/functions.php');
+    notAdmin();
+    logout();
 
 $user = null;
 if (isset($_SESSION['user_id'])) {
@@ -12,7 +13,6 @@ if (isset($_SESSION['user_id'])) {
     $user = $query->fetch();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,9 +79,13 @@ if (isset($_SESSION['user_id'])) {
               <div>
                   <input type="text" name="subject" placeholder="Subject of the message" >
                   <textarea name="message" id="" placeholder="Message" rows="4"></textarea>
-                  <input class="button" type="submit" name="add" value="Send message">
+                  <input class="button" type="submit" name="send" value="Send message">
                   
               </div>
+              <div class="errors-management">
+                <p class="error"><?=$error?></p>
+                <p class="success"><?=$success?></p>
+            </div>
           </form>
         </div> 
       </div>

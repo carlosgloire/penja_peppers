@@ -140,15 +140,15 @@
                 </div>
             </div>
             <div class="contact-input">
-                <form action="" method="post">
+                <form action="../controllers/contact_us.php" method="post">
                     <div>
-                        <input type="text" name="noms" placeholder="Votre nom">
-                        <input  type="email" name="email" placeholder="Votre email">
+                        <input type="text" name="noms" placeholder="Your name">
+                        <input type="text" name="email" placeholder="Your email">
                     </div>
-                    <input type="text" name="subject" placeholder="Titre du message">
-                    <textarea placeholder="Écrivez votre message..." name="message" id="" rows="5"></textarea>
+                    <input type="text" name="subject" placeholder="Message title">
+                    <textarea placeholder="Write your message..." name="message" id="" rows="5"></textarea>
                     <div>
-                        <button type="submit" name="send">Envoyer le message</Blog>
+                        <button name="send" type="submit">Send message</button>
                     </div>
                 </form>
             </div>

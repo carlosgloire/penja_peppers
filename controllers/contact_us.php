@@ -12,11 +12,11 @@ if (isset($_POST['send'])) {
         
         if (empty($subject) || empty($message) || empty($sender_email) || empty($noms)) {
             echo '<script>alert("Please complete all fields");</script>';
-            echo '<script>window.location.href="../pages/";</script>';
+            echo '<script>window.location.href="../pages/contact.php";</script>';
             exit;
         } elseif (!filter_var($sender_email, FILTER_VALIDATE_EMAIL)) {
             echo '<script>alert("Your email is incorrect");</script>';
-            echo '<script>window.location.href="../pages/";</script>';
+            echo '<script>window.location.href="../pages/contact.php";</script>';
             exit;
         }else {
             $mail = require __DIR__ . "/mail/mailer.php";
@@ -57,16 +57,16 @@ if (isset($_POST['send'])) {
             $mail->isHTML(true);
             
             // Set the recipient to the admin email
-            $mail->addAddress('ndayisabarenzaho@gmail.com', 'Admin'); // Admin's email address
+            $mail->addAddress('ndayisabagloire96@gmail.com', 'Admin'); // Admin's email address
 
             try {
                 $mail->send();
                 echo '<script>alert("Your message has been sent successfully, you will be replied via your email");</script>';
-                echo '<script>window.location.href="../pages/";</script>';
+                echo '<script>window.location.href="../pages/contact.php";</script>';
                 exit;
             } catch (Exception $e) {
                 echo "<script>alert('The message was not sent');</script>";
-                echo '<script>window.location.href="../pages/";</script>';
+                echo '<script>window.location.href="../pages/contact.php";</script>';
                 exit;
             }
         }

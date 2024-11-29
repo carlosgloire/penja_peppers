@@ -89,6 +89,10 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
              <a href="orders.php">Orders</a>
           </div>
           <div >
+            <i class="bi bi-file-earmark-post"></i>
+            <a href="posts.php">Posts</a>
+          </div>
+          <div >
                 <i class="bi bi-envelope"></i>
                 <a href="news-letter.php">News letter</a>
           </div>

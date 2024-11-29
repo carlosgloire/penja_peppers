@@ -20,7 +20,7 @@ if (isset($_POST['send'])) {
             $error = "Please fill in all fields.";
         } else {
             $mail = require __DIR__ . "/mail/mailer.php";
-            $mail->setFrom("noreply@example.com", "Online shoes storing management system");
+            $mail->setFrom("noreply@example.com", "PENJA PEPPERS");
             $mail->Subject = $subject;
             $mail->CharSet = 'UTF-8'; // Set charset to UTF-8
 
