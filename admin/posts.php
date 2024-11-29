@@ -2,7 +2,7 @@
 session_start();
 require_once('../controllers/database/db.php');
 require_once('../controllers/functions.php');
-notAdmin();
+
 logout();
 
 $user = null;
@@ -10,7 +10,6 @@ if (isset($_SESSION['user_id'])) {
     $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
     $query->execute(['user_id' => $_SESSION['user_id']]);
     $user = $query->fetch();
-    notAdmin();
 }
 ?>
 
@@ -19,7 +18,7 @@ if (isset($_SESSION['user_id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin dashboard</title>
+    <title>Posts</title>
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="../asset/css/admin_dashboard.css">
     <link rel="stylesheet" href="../asset/css/styles.css">
@@ -44,13 +43,21 @@ if (isset($_SESSION['user_id'])) {
                 </div>
                 <h3 style="margin-top: -10px;"><?=$user['firstname']?> <?=$user['lastname']?></h3>
           </div>
-          <div class="activ">
+          <div >
             <i class="bi bi-speedometer2"></i>
-            <a href="">Dashboard</a>
+            <a href="adminDashboard.php">Dashboard</a>
           </div>
           <div >
                 <i class="bi bi-dropbox"></i>
                 <a href="products.php">Products</a>
+          </div>
+          <div>
+            <i class="bi bi-basket2-fill"></i>
+             <a href="orders.php">Orders</a>
+          </div >
+          <div class="activ">
+            <i class="bi bi-file-earmark-post"></i>
+            <a href="">Posts</a>
           </div>
           <div >
                 <i class="bi bi-envelope"></i>
@@ -69,8 +76,41 @@ if (isset($_SESSION['user_id'])) {
         <div class="admin-header">
             <h3>Admin Dashboard</h3>
         </div>
-           
-      </div>
+        <div class="posts-section" >
+            <h3>Posts</h3>
+            <div class="add-product">
+                <a href="add_post.php">Add a post</a>
+            </div>
+            <div class="post-container" style="overflow:auto;height:440px; background-color:#fff;padding:10px;border-radius:10px">
+                <?php
+                    $stmt = $db->prepare('SELECT * FROM posts ORDER BY post_id DESC');
+                    $stmt->execute();
+                    $posts = $stmt->fetchAll();
+                    if(!$posts){
+                        ?>
+                            <p>No posts yet added</p>
+                        <?php
+                    } else {
+                        foreach($posts as $post) {
+                            ?>
+                                <div class="post">
+                                    <img src="../pages/posts_images/<?=$post['image']?>" alt="Post Image">
+                                    <h4><?=$post['title']?></h4>
+                                    <p><?=$post['content']?></p> <!-- Display post content if needed -->
+                                    <div class="buy" style="gap: 10px; display: flex; margin-left:10px">
+                                        <a href="edit_post.php?post_id=<?=$post['post_id']?>"><i class="bi bi-pen" title="Edit this post"></i></a>
+                                        <a style="color: red; cursor: pointer" post_id='<?=$post['post_id']?>' class="delete" title="Delete this post"><i class="bi bi-trash3"></i></a>
+                                    </div>
+                                </div>
+                            <?php
+                        }
+                    }
+                ?>
+            </div>
+        </div>
+    </div>
+ 
     </section>
+    <script src="../asset/javascript/delete_post.js"></script>
 </body>
 </html>

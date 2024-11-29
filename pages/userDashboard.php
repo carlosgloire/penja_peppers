@@ -74,74 +74,74 @@
         <h4><?=$user['firstname']?> <?=$user['lastname']?> !</h4>
         <p style="font-size: 17px;">Explore your orders at Penja Peppers! You can explore all your orders, delete the ones you don’t need, edit their details, and pay for any unpaid ones. It’s easy to manage everything in one place! use the scroll bar to view more orders.</p>
         <div class="orders">
-        <?php foreach ($orders as $order): ?>
-          <div class="order-container">
-              <p style="text-align: right;font-size: 16px;margin-right: 10px;"><?=$order['order_date']?></p>
+          <?php foreach ($orders as $order): ?>
+            <div class="order-container">
+                <p style="text-align: right;font-size: 16px;margin-right: 10px;"><?=$order['order_date']?></p>
 
-              <?php 
-              // Fetch the order items for this order
-              $itemQuery = $db->prepare("
-                  SELECT oi.product_id, oi.order_item_id, oi.quantity, oi.total_price, p.name, p.photo
-                  FROM order_item oi
-                  JOIN products p ON oi.product_id = p.product_id
-                  WHERE oi.order_id = :order_id
-              ");
-              $itemQuery->execute(['order_id' => $order['order_id']]);
-              $orderItems = $itemQuery->fetchAll();
+                <?php 
+                // Fetch the order items for this order
+                $itemQuery = $db->prepare("
+                    SELECT oi.product_id, oi.order_item_id, oi.quantity, oi.total_price, p.name, p.photo
+                    FROM order_item oi
+                    JOIN products p ON oi.product_id = p.product_id
+                    WHERE oi.order_id = :order_id
+                ");
+                $itemQuery->execute(['order_id' => $order['order_id']]);
+                $orderItems = $itemQuery->fetchAll();
 
-              // Calculate the total order price
-              $totalQuery = $db->prepare("SELECT SUM(total_price) AS total_order_price FROM order_item WHERE order_id = :order_id");
-              $totalQuery->execute(['order_id' => $order['order_id']]);
-              $totalOrderPrice = $totalQuery->fetchColumn();
-              ?>
-              <div>
-                
-              </div>
-              <?php foreach ($orderItems as $item): ?>
-                  <div class="order-prod" style="margin-bottom: 20px;">
-                      <div>
-                          <p><img src="products_images/<?=$item['photo']?>" alt=""></p>
-                      </div>
-                      <div>
-                          <h4>Product name</h4>
-                          <span><?=$item['name']?></span>
-                      </div>
-                      <div>
-                          <h4>Price</h4>
-                          <span><?=$item['total_price']?></span>
-                      </div>
-                      <div>
-                          <h4>Quantity selected</h4>
-                          <p><?=$item['quantity']?></p>
-                      </div>
-                      <div class="delete">
-                      <?php if ($order['status'] !== 'completed'): ?>
-                      <button title="Delete order item" class="delete_item" gallery_id="<?= $item['order_item_id'] ?>"><i class="bi bi-trash3"></i></button>
-                          <a href="edit_order_item.php?order_item_id=<?= $item['order_item_id'] ?>&order_id=<?= $order['order_id'] ?>" title="Edit order item">
-                              <i class="bi bi-pen"></i> 
-                          </a>
-                      <?php endif; ?>
+                // Calculate the total order price
+                $totalQuery = $db->prepare("SELECT SUM(total_price) AS total_order_price FROM order_item WHERE order_id = :order_id");
+                $totalQuery->execute(['order_id' => $order['order_id']]);
+                $totalOrderPrice = $totalQuery->fetchColumn();
+                ?>
+                <div>
+                  
+                </div>
+                <?php foreach ($orderItems as $item): ?>
+                    <div class="order-prod" style="margin-bottom: 20px;">
+                        <div>
+                            <p><img src="products_images/<?=$item['photo']?>" alt=""></p>
+                        </div>
+                        <div>
+                            <h4>Product name</h4>
+                            <span><?=$item['name']?></span>
+                        </div>
+                        <div>
+                            <h4>Price</h4>
+                            <span><?=$item['total_price']?></span>
+                        </div>
+                        <div>
+                            <h4>Quantity selected</h4>
+                            <p><?=$item['quantity']?></p>
+                        </div>
+                        <div class="delete">
+                        <?php if ($order['status'] !== 'completed'): ?>
+                        <button title="Delete order item" class="delete_item" gallery_id="<?= $item['order_item_id'] ?>"><i class="bi bi-trash3"></i></button>
+                            <a href="edit_order_item.php?order_item_id=<?= $item['order_item_id'] ?>&order_id=<?= $order['order_id'] ?>" title="Edit order item">
+                                <i class="bi bi-pen"></i> 
+                            </a>
+                        <?php endif; ?>
 
-                      </div>
-                  </div>
-                  <?=popup_order_item()?>
-              <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <?=popup_order_item()?>
+                <?php endforeach; ?>
 
-              <div class="price">
-                  <h4>Total price</h4>
-                  <span>$<?= number_format($totalOrderPrice, 0) ?></span>
-              </div>
+                <div class="price">
+                    <h4>Total price</h4>
+                    <span>$<?= number_format($totalOrderPrice, 0) ?></span>
+                </div>
 
-              <div class="order-status">
-                  <?php if ($order['status'] === 'pending'): ?>
-                      <p>Status: Pending</p>
-                      <a href="payment_from_orders.php?order_id=<?= $order['order_id'] ?>" class="pay-now-btn">Pay Now</a>
-                  <?php else: ?>
-                      <p>Status: Paid</p>
-                  <?php endif; ?>
-              </div>
-          </div>
-      <?php endforeach; ?>
+                <div class="order-status">
+                    <?php if ($order['status'] === 'pending'): ?>
+                        <p>Status: Pending</p>
+                        <a href="payment_from_orders.php?order_id=<?= $order['order_id'] ?>" class="pay-now-btn">Pay Now</a>
+                    <?php else: ?>
+                        <p>Status: Paid</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+          <?php endforeach; ?>
         </div>
 
 

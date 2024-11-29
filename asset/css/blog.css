@@ -35,11 +35,12 @@
 .blog-post .title{
     text-align: center;
 }
-.blog-post img{
+.blog-post .image-article{
+    margin-top: 20px;
     display: block;
     margin: 0 auto;
     width: 350px;
-    height: 400px;
+    height: auto;
     object-fit: cover;
 }
 .blog-post p {

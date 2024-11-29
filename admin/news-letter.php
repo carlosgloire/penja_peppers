@@ -2,7 +2,7 @@
 session_start();
 require_once('../controllers/database/db.php');
 require_once('../controllers/functions.php');
-
+notAdmin();
 logout();
 
 $user = null;
@@ -51,6 +51,10 @@ if (isset($_SESSION['user_id'])) {
           <div >
                 <i class="bi bi-dropbox"></i>
                 <a href="products.php">Products</a>
+          </div>
+          <div>
+            <i class="bi bi-basket2-fill"></i>
+             <a href="orders.php">Orders</a>
           </div>
           <div class="activ">
                 <i class="bi bi-envelope"></i>

@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    require_once('../controllers/database/db.php');
+    require_once('../controllers/functions.php');
+    notAdmin();
+    logout();
     require_once('../controllers/add_product.php');
 ?>
 <!DOCTYPE html>

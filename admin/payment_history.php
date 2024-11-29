@@ -1,12 +1,60 @@
+<?php
+session_start();
+require_once('../controllers/database/db.php');
+require_once('../controllers/functions.php');
+notAdmin();
+logout();
+
+$user = null;
+if (isset($_SESSION['user_id'])) {
+    $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
+    $query->execute(['user_id' => $_SESSION['user_id']]);
+    $user = $query->fetch();
+}
+
+$sql = "
+SELECT 
+    u.firstname,
+    u.lastname,
+    p.payment_date, 
+    SUM(oiu.quantity) AS shoes_purchased, 
+    p.payment_method, 
+    p.amount, 
+    p.status 
+FROM 
+    payment p 
+JOIN 
+    orders ou ON p.order_id = ou.order_id 
+JOIN 
+    order_item oiu ON ou.order_id = oiu.order_id 
+JOIN 
+    users u ON ou.user_id = u.user_id
+GROUP BY 
+    u.firstname, 
+    u.lastname, 
+    p.payment_date, 
+    p.payment_method, 
+    p.amount, 
+    p.status
+ORDER BY
+    p.payment_date DESC  
+";
+
+$stmt = $db->prepare($sql);
+$stmt->execute();
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Payment history</title>
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="../asset/css/admin_dashboard.css">
+    <link rel="stylesheet" href="../asset/css/styles.css">
     <link rel="stylesheet" href="../asset/css/payment_history.css">
-    <link rel="stylesheet" href="../asset/css/userDashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -22,68 +70,66 @@
     <section>
       <aside>
         <nav>
-          <div  class="title">
-            <i class="bi bi-person-circle"></i> <h3>Penja Peppers</h3>
+          <div class="title" style="font-size: 0.8rem;">
+                <div class="profile">
+                    <p><img src="../pages/profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"></p>
+                </div>
+                <h3 style="margin-top: -10px;"><?=$user['firstname']?> <?=$user['lastname']?></h3>
           </div>
           <div >
             <i class="bi bi-speedometer2"></i>
-            <a href="userDashboard.php">Dashboard</a>
+            <a href="adminDashboard.php">Dashboard</a>
           </div>
           <div >
-            <i class="bi bi-dropbox"></i>
-            <a href="products.php">Products</a>
+                <i class="bi bi-dropbox"></i>
+                <a href="products.php">Products</a>
+          </div>
+          <div>
+            <i class="bi bi-basket2-fill"></i>
+             <a href="orders.php">Orders</a>
+          </div>
+          <div >
+                <i class="bi bi-envelope"></i>
+                <a href="news-letter.php">News letter</a>
           </div>
           <div class="activ">
             <i class="bi bi-credit-card-2-front"></i>
-            <a href="">Payment history</a>
+            <a href="payment_history.php">Payment history</a>
           </div>
           <form action="" method="post">
-            <button><i class="bi bi-box-arrow-left"></i> <p>Logout</p></button>
+            <button name="logout"><i class="bi bi-box-arrow-left"></i> <p>Logout</p></button>
           </form>
         </nav>
       </aside>
-      <div class="right-side">
-        <div class="profile-section">
-            <div class=" container" >
-                <h3 style="margin-bottom: 20px;">Payment history</h3>
-                <table>
-                    <tr>
-                        <th>Payment Date</th>
-                        <th>Product Purchased</th>
-                        <th>Payment Method</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td>2024-09-01</td>
-                        <td>3</td>
-                        <td>Credit Card</td>
-                        <td>RWF 15000000</td>
-                        <td class="status-completed">Completed</td>
-                    </tr>
-                    <tr>
-                        <td>2024-08-25</td>
-                        <td>2</td>
-                        <td>PayPal</td>
-                        <td>RWF 15000000</td>
-                        <td class="status-pending">Pending</td>
-                    </tr>
-                    <tr>
-                        <td>2024-08-15</td>
-                        <td>1</td>
-                        <td>Bank Transfer</td>
-                        <td>RWF 15000000</td>
-                        <td class="status-canceled">Canceled</td>
-                    </tr>
-                    <tr>
-                        <td>2024-08-05</td>
-                        <td>5</td>
-                        <td>Credit Card</td>
-                        <td>RWF 15000000</td>
-                        <td class="status-completed">Completed</td>
-                    </tr>
-                </table>
-            </div>
+      <div class="right-side" >
+        <div class="admin-header">
+            <h3>Admin Dashboard</h3>
+        </div>
+        <div class="second-bloc container" style="margin-top: 20px;" >
+            <h3 style="text-align: center;margin-top:20px;margin-bottom:10px">Payment history</h3>
+
+            <table sty>
+                <tr>
+                    <th style="text-align: left;">Name</th>
+                    <th>Payment Date</th>
+                    <th>Products</th>
+                    <th>Payment Method</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                </tr>
+                <?php foreach ($results as $row): ?>
+                <tr>
+                    <td style="text-align: left;"><?php echo htmlspecialchars($row['firstname'] . ' ' . htmlspecialchars($row['lastname'])); ?></td>
+                    <td><?php echo htmlspecialchars($row['payment_date']); ?></td>
+                    <td><?php echo htmlspecialchars($row['shoes_purchased']); ?></td>
+                    <td><?php echo htmlspecialchars($row['payment_method']); ?></td>
+                    <td><?php echo htmlspecialchars($row['amount']); ?></td>
+                    <td class="<?php echo 'status-' . strtolower(htmlspecialchars($row['status'])); ?>">
+                        <?php echo htmlspecialchars($row['status']); ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
         </div>
       </div>
     </section>

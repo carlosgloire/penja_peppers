@@ -21,7 +21,7 @@ if (isset($_SESSION['user_id'])) {
     <title>Products</title>
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="../asset/css/admin_dashboard.css">
-
+    <link rel="stylesheet" href="../asset/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -51,6 +51,14 @@ if (isset($_SESSION['user_id'])) {
                 <i class="bi bi-dropbox"></i>
                 <a href="">Products</a>
           </div>
+          <div>
+            <i class="bi bi-basket2-fill"></i>
+             <a href="orders.php">Orders</a>
+          </div>
+          <div >
+            <i class="bi bi-file-earmark-post"></i>
+            <a href="posts.php">Posts</a>
+          </div>
           <div >
                 <i class="bi bi-envelope"></i>
                 <a href="news-letter.php">News letter</a>
@@ -73,7 +81,7 @@ if (isset($_SESSION['user_id'])) {
             <div class="add-product">
                 <a href="add_product.php">Add a product</a>
             </div>
-            <div class="product-container">
+            <div class="product-container" style="overflow:auto;height:440px; background-color:#fff;padding:10px;border-radius:10px">
                 <?php
                     $stmt =$db->prepare('SELECT * FROM products ORDER BY product_id DESC');
                     $stmt->execute();

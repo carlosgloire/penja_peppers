@@ -1,21 +1,13 @@
 <?php
-
-    session_start();
-    require_once('../controllers/edit_product.php');
-    require_once('../controllers/database/db.php');
-    require_once('../controllers/functions.php');
-    notAdmin();
-    logout();
-    
+    require_once('../controllers/edit_post.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Product</title>
+    <title>Edit Post</title>
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
-    <link rel="stylesheet" href="../asset/css/login.css">
     <link rel="stylesheet" href="../asset/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
@@ -30,31 +22,19 @@
 <body>
     <section class="login-section">
         <form action="" method="post" enctype="multipart/form-data">
-            <h3>Update Product</h3>
+            <h3>Edit Post</h3>
             <div>
-                <input type="text" name="name" placeholder="Product Name" value="<?= htmlspecialchars($name) ?>" required>
-                
-                <select name="category">
-                    <option value="Peppers" <?= $category == 'Peppers' ? 'selected' : '' ?>>Peppers</option>
-                    <option value="Chocolates" <?= $category == 'Chocolates' ? 'selected' : '' ?>>Chocolates</option>
-                    <option value="Cigars" <?= $category == 'Cigars' ? 'selected' : '' ?>>Cigars</option>
-                    <option value="Other" <?= $category == 'Other' ? 'selected' : '' ?>>Other</option>
-                </select>
-                
-                <textarea name="description" placeholder="Product description" rows="4" required><?= htmlspecialchars($description) ?></textarea>
-                
-                <input type="number" name="stock" placeholder="Stock Quantity" value="<?= htmlspecialchars($stock) ?>" min="0" required>
-                
-                <input type="number" name="price" placeholder="Product Price" value="<?= htmlspecialchars($price) ?>" required>
-                
-                <p style="text-align: left;">Product Photo</p>
+                <input type="text" name="title" placeholder="Post Title" value="<?= isset($title) ? $title : '' ?>" required>
+
+                <textarea name="content" placeholder="Post content" rows="6" required><?= isset($content) ? $content : '' ?></textarea>
+
+                <p style="text-align: left;">Post Photo</p>
                 <input type="file" name="uploadfile" accept="image/*">
-                
-                <input class="button" type="submit" name="update_product" value="Update Product">
-                
+
+                <input class="button" type="submit" name="update_post" value="Update Post">
+
                 <div class="errors-management">
                     <p class="error"><?= $error ?></p>
-                    <p class="success"><?= $success ?></p>
                 </div>
             </div>
         </form>

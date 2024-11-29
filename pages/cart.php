@@ -110,32 +110,45 @@ if (isset($_POST['update_cart'])) {
                     <a class="cart" href="cart.php"><i class="fas fa-shopping-cart"></i></a>
                     <span><?=$total_quantity > 0 ? $total_quantity:"0"?></span>
                 </div>
-                <div class="indicator">
-                    <div class="profile">
-                        <p><a style="display: flex;" href="userDashboard.php"><img src="profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"><i style="margin-top: 10px;" class="bi bi-three-dots-vertical"></i></a></p>
-                    </div>
-                    <div class="dashboard-user">
-                        <a href="userDashboard.php">
-                            <i class="bi bi-speedometer2"></i>
-                            <span>Dashboard</span>
-                        </a>
-                        <!-- Example static admin link -->
-                        <a href="../admin/admin.php">
-                            <i class="bi bi-clipboard-pulse"></i>
-                            <span>Administration</span>
-                        </a>
-                        <a href="profile.php">
-                            <i class="bi bi-person-check"></i>
-                            <span>My profile</span>
-                        </a>
-                        <a   style="display: flex;align-items:center;gap:5px">
-                            <i class="bi bi-box-arrow-in-right"></i>
-                            <form action="" method="post" style="margin-top: -3px;">
-                                <button name="logout"><span>Log out</span></button>
-                            </form>
-                        </a>
-                    </div>
-                </div>
+                <?php
+                    if (isset($_SESSION['user']) && $_SESSION['user']){
+                        ?>
+                            <div class="indicator">
+                                <div class="profile">
+                                    <p><a style="display: flex;" href="userDashboard.php"><img src="profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"><i style="margin-top: 10px;" class="bi bi-three-dots-vertical"></i></a></p>
+                                </div>
+                                <div class="dashboard-user">
+                                    <a href="userDashboard.php">
+                                        <i class="bi bi-speedometer2"></i>
+                                        <span>Dashboard</span>
+                                    </a>
+
+                                    <?php
+                                        $admin=$user['role'];
+                                        if($admin=='admin'){
+                                            ?>
+                                                 <a href="../admin/adminDashboard.php">
+                                                    <i class="bi bi-clipboard-pulse"></i>
+                                                    <span>Administration</span>
+                                                </a>
+                                            <?php
+                                        }
+                                    ?>
+                                    <a href="pages/profile.php">
+                                        <i class="bi bi-person-check"></i>
+                                        <span>My profile</span>
+                                    </a>
+                                    <a   style="display: flex;align-items:center;gap:5px;;">
+                                        <i class="bi bi-box-arrow-in-right"></i>
+                                        <form action="" method="post" style="margin-top: -3px;">
+                                            <button name="logout"><span>Log out</span></button>
+                                        </form>
+                                    </a>
+                                </div>
+                            </div>
+                            <?php
+                    }
+                ?>
                 <div class="our-menu">
                     <i class="bi bi-list menu-icon"></i>
                     <i class="bi bi-x exit-icon"></i>
