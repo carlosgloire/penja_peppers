@@ -28,7 +28,6 @@ h4,
 h5,
 h6 ,button{
     font-family: "Montserrat", sans-serif;
-
 }
 h3{
     color: #3c8cc9;
@@ -44,7 +43,6 @@ section{
 
 }
 aside{
- 
     background-color: white;
     padding: 10px;
     padding-top: 30px;
@@ -68,16 +66,15 @@ aside{
 aside .title{
     display: flex;
     gap: 10px;
+    -webkit-column-gap: 10px;
     align-items: center;
     margin-bottom: 40px;
-
 }
 aside .title i{
     color: black;
     font-size: 1.5rem;
 }
 aside i{
-
     color: #3c8cc9;
 }
 nav div{
@@ -128,6 +125,7 @@ form button{
     text-align: center;
     display: flex;
     gap: 10px;
+    -webkit-column-gap: 10px;
     align-items: center;
     font-size: 1rem;
 }
@@ -151,11 +149,9 @@ form i{
 /*-----------------------------------/
 #Dashboard
 /-----------------------------------*/
-
 .our-cart-prod {
     margin-top: 10px;
 }
-
 .order-prod {
     display: flex;
     align-items: center;
@@ -182,12 +178,12 @@ form i{
     height: 120px;
     object-fit: cover;
     mix-blend-mode: multiply;
-
 }
 
 .delete{
     display: grid;
     gap: 10px;
+    -webkit-column-gap: 10px;
     padding-right: 20px;
 }
 .delete button {
@@ -229,23 +225,20 @@ form i{
     justify-content: center;
     -webkit-column-gap: 10px;
 }
-
 .our-buttons button {
     color: #fff;
     padding: 10px 20px;
     border-radius: 25px;
     background-color: #141b1fda;
 }
-
-
 /*---------------------------------------/
 #User profile
 /---------------------------------------*/
-
-
 .profile-section {
     display: flex;
     gap: 20px;
+    -webkit-column-gap: 20px;
+
     flex-wrap: wrap;
     width: 100%;
 }
@@ -271,12 +264,12 @@ form i{
     border: none;
     cursor: pointer;
     background-color: initial;
-
 }
 
 .profile-edit form{
     display: grid;
     gap: 12px;
+    -webkit-column-gap: 12px;
 }
 .profile-edit form input {
     padding: 8px;
@@ -314,8 +307,10 @@ form i{
 .errors-management .error{
     color: red;
 }
+/*-----------------------------------/
+#Popup
+/-----------------------------------*/
 
-/*************POPUP************/
 .popup{
     height: 100%;
     width: 100%;
@@ -338,7 +333,6 @@ form i{
 .hidden-popup{
     display: none;
 }
-
 .icons-link {
     border: none;
     outline: none;
@@ -348,7 +342,6 @@ form i{
     font-family: "Poppins", sans-serif;
     width: 48%;
     border-radius: 4px;
- 
 }
 .pay-now-btn{
     cursor: pointer;
@@ -366,6 +359,7 @@ form i{
     align-items: center;
     font-size: 1rem;
 }
+
 a{
     text-decoration: none;
 }

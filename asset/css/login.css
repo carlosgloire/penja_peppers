@@ -54,7 +54,7 @@ h6 ,button{
 .login-section form div{
     display: grid;
     gap: 12px;
-
+    -webkit-column-gap: 12px;
 }
 .login-section form div input,select{
     padding: 10px;
@@ -109,6 +109,10 @@ textarea{
     text-decoration: none;
     background-color: #f5f5f5;
 }
+
+/*-----------------------------------/
+#Media Query login form
+/-----------------------------------*/
 @media screen and (max-width:975px) {
     .login-section form{
         width: 45%;

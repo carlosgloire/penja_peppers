@@ -1,26 +1,25 @@
 
 <?php 
-  session_start();
-  require_once('../controllers/database/db.php');
-  require_once('../controllers/functions.php');
-  logout();
+    session_start();
+    require_once('../controllers/database/db.php');
+    require_once('../controllers/functions.php');
+    logout();
 
-  $user = null;
-  if (isset($_SESSION['user_id'])) {
-      $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
-      $query->execute(['user_id' => $_SESSION['user_id']]);
-      $user = $query->fetch();
-  }
-
-  // Fetch all orders for the current user
-  $query = $db->prepare("
-      SELECT o.order_id, o.order_date, o.total_amount, o.status 
-      FROM orders o
-      WHERE o.user_id = :user_id
-      ORDER BY o.order_date DESC
-  ");
-  $query->execute(['user_id' => $_SESSION['user_id']]);
-  $orders = $query->fetchAll();
+    $user = null;
+    if (isset($_SESSION['user_id'])) {
+        $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
+        $query->execute(['user_id' => $_SESSION['user_id']]);
+        $user = $query->fetch();
+    }
+    // Fetch all orders for the current user
+    $query = $db->prepare("
+        SELECT o.order_id, o.order_date, o.total_amount, o.status 
+        FROM orders o
+        WHERE o.user_id = :user_id
+        ORDER BY o.order_date DESC
+    ");
+    $query->execute(['user_id' => $_SESSION['user_id']]);
+    $orders = $query->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -143,13 +142,9 @@
             </div>
           <?php endforeach; ?>
         </div>
-
-
     </div>
-    
-    </section>
-    <script src="../asset/javascript/popup_delete_oderItem.js"></script>
-
+  </section>
+  <script src="../asset/javascript/popup_delete_oderItem.js"></script>
 </body>
 </html>
 

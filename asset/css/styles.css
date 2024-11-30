@@ -26,12 +26,16 @@ h4,
 h5,
 h6 ,button{
     font-family: "Montserrat", sans-serif;
-
 }
 h3{
     color: #3c8cc9;
  }
-/* Top Bar */
+ a{
+    text-decoration: none;
+ }
+/*-----------------------------------/
+#Header 
+/-----------------------------------*/
 .top-bar {
     background-color: white;
     color: #000;
@@ -45,7 +49,6 @@ h3{
     font-size: 1rem;
     font-weight: 200;
 }
-
 .top-bar a {
     color: #000;
     text-decoration: none;
@@ -59,7 +62,6 @@ h3{
     z-index: 2000;
     width: 100%;
 }
-/* Header */
 header {
     background: #1f242df2;
     color: #fff;
@@ -68,21 +70,15 @@ header {
     align-items: center;
     padding: 5px 30px 5px 30px;
     box-shadow: 0px 2px 4px #313131d7;
-
-   
 }
-
-
 .nav-links {
     list-style: none;
     display: flex;
     gap: 30px;
 }
-
 .nav-links a {
     color: #fff;
     text-decoration: none;
-
 }
 .nav-links a:hover {
     color: #54abee;
@@ -106,7 +102,6 @@ header .cart-list .cart {
     font-size: 30px;
     color: #fff;
 }
-
 header .cart-list span {
     padding: 0px 5px;
     border-radius: 50%;
@@ -129,8 +124,6 @@ header .cart-list span {
     width: auto;
 
 }
-
-  /* Search Input and Icon */
 .search-container {
     position: relative;
     display: flex;
@@ -143,10 +136,10 @@ header .cart-list span {
     align-items: center;
 }
 
-/*Menu icons*/
 .our-menu {
     display: flex;
     flex-direction: row;
+    margin-top: 13px;
 }
 .our-menu i {
     color:  #fff;
@@ -174,67 +167,58 @@ header .cart-list span {
     outline: none;
     background-color: initial;
     color: white;
-
 }
-
 .search-container.active .search-input {
     width: 200px;
     padding: 5px 10px;
     opacity: 1;
     visibility: visible;
-
 }
 .indicator i {
     font-size: 1rem;
     color: #fff;
     font-weight: 400;
-
 }
 .search-icon {
     cursor: pointer;
     margin-left: 5px;
     color: #333;
 }
-
-  /* Top Bar */
   .top-bar {
     background-color: #f8f8f8;
     padding: 5px 30px;
 }
-
 .moving-text {
     display: flex;
-    align-items: center; /* Center them horizontally */
+    align-items: center; 
     animation: scroll-text 45s linear infinite;
     width: 100%;
     justify-content: space-between;
-
 }
-
 .text:nth-child(2) {
-    animation-delay: 5s; /* Delay for the second paragraph to start */
+    animation-delay: 5s; 
 }
 
 /* Scrolling Animation */
 @keyframes scroll-text {
     0% {
-        transform: translateX(100%); /* Start from the right */
+        transform: translateX(100%); 
     }
     50% {
-        transform: translateX(0); /* Center in the viewport */
+        transform: translateX(0);
     }
     100% {
-        transform: translateX(-100%); /* Exit to the left */
+        transform: translateX(-100%);
     }
 }
 
-/* Top Bar Links */
+
 .top-bar a {
     text-decoration: none;
     color: #333;
     margin-left: 10px;
 }
-/*user profile*/
+
 .profile p img{
     border-radius: 50%;
 }
@@ -427,19 +411,16 @@ header .cart-list span {
     text-align: center;
 
 }
-
-
 .about-us .paragraphs {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
+    -webkit-column-gap: 20px;
 }
 /*---------------------------------------/
 #Why to choose us 
 /---------------------------------------*/
-
-
 .timeline{
     display: grid;
     justify-content: center;
@@ -456,6 +437,7 @@ header .cart-list span {
 .timeline .timeline-row{
      display: flex;
      column-gap : 30px;
+     -webkit-column-gap:30px ;
      flex-wrap: wrap ; 
 }
 .timeline-row .timeline-column{
@@ -471,16 +453,15 @@ header .cart-list span {
     display: flex;
     align-items: center;
     gap: 10px;
+    -webkit-column-gap: 10px ;
 }
 .timeline-column .timeline-box{
     position: relative;
     border-left: 2px solid #3c8cc9 ;
-   
 }
 .timeline-box .timeline-content{
     position: relative;
     padding-left: 27px ;
-     
 }
 .timeline-box .timeline-content .content:hover{
     background-color:#1f242d ;
@@ -503,7 +484,6 @@ header .cart-list span {
     border-radius: 8px;
     margin-bottom: 32px;
     transition: 0.6s ease-in-out;
-    
 }
 .timeline-content .content .year{
     font-size: 16px;
@@ -513,7 +493,6 @@ header .cart-list span {
     font-size: 19px;
     margin: 8px 0;
 }
-
 .animate {
     position: absolute;
     top: 0;
@@ -532,18 +511,17 @@ header .cart-list span {
     }
 }
 
-
 /*---------------------------------------/
 #Products
 /---------------------------------------*/
 .products-section{
     padding: 20px 30px 30px 30px ;
-
 }
 .product-container{
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+    -webkit-column-gap: 20px;
     justify-content: center;
 }
 .products-section h3{
@@ -557,7 +535,6 @@ header .cart-list span {
     mix-blend-mode: multiply;
 }
 .products-section   .product{
-
     padding: 20px;
     box-shadow: 0px 2px 4px #00000017;
     border-radius: 8px;
@@ -576,6 +553,7 @@ header .cart-list span {
     display: flex;
     align-items: center;
     gap: 10px;
+    -webkit-column-gap: 10px;
 }
 .products-section .product .stars div{
     color: #ffdc60;
@@ -611,7 +589,7 @@ header .cart-list span {
 
 .newsletter-section {
     display: grid;
-    place-items: center; /* Centers content horizontally and vertically */
+    place-items: center; 
     background-color: #f9f9f9;
     padding: 30px;
     text-align: center;
@@ -620,28 +598,26 @@ header .cart-list span {
 
 .newsletter-section div {
     display: grid;
-    margin: 0 auto; /* Centers content within the section */
-    max-width: 600px; /* Ensures the content does not stretch too wide */
+    margin: 0 auto;
+    max-width: 600px; 
 }
 
 .newsletter-section h3 {
     font-weight: 600;
     margin-bottom: 10px;
-
 }
-
 .newsletter-section p {
     color: #555;
     margin-bottom: 20px;
 }
-
 .newsletter-form {
     display: flex;
     align-items: center;
     gap: 5px;
-    width: 100%; /* Adjust width to fit the parent container */
-    max-width: 400px; /* Restrict the form's maximum width */
-    margin: 0 auto; /* Center the form horizontally */
+    -webkit-column-gap: 5px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto; 
 }
 
 .newsletter-form input {
@@ -656,8 +632,6 @@ header .cart-list span {
     box-shadow: 0px 2px 4px #00000017;
     border: none;
 }
-
-
 .newsletter-form button {
     padding: 10.5px 20.5px;
     font-size: 1rem;
@@ -669,7 +643,6 @@ header .cart-list span {
     cursor: pointer;
     transition: background-color 0.3s;
     box-shadow: 0px 2px 4px #00000017;
-
 }
 
 .newsletter-form button:hover {
@@ -694,6 +667,8 @@ header .cart-list span {
   .content-container {
     display: flex;
     gap: 20px;
+    -webkit-column-gap: 20px;
+
     align-items: flex-start;
   }
   
@@ -726,6 +701,8 @@ header .cart-list span {
     display: flex;
     align-items: center;
     gap: 10px;
+    -webkit-column-gap: 10px;
+
   }
   
   .text-container ul .icon {
@@ -739,8 +716,7 @@ header .cart-list span {
     text-align: left;
   }
   
-  
-  /*---------------------------------------/
+/*---------------------------------------/
 #Feature
 /---------------------------------------*/
 .features{
@@ -749,12 +725,12 @@ header .cart-list span {
     padding: 30px;
     width: 100%;
     background-color: #fafafa;
-
 }
 .features-container{
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
+    -webkit-column-gap: 30px;
     justify-content: center;
 }
 .features h3{
@@ -775,8 +751,6 @@ header .cart-list span {
     border-radius: 8px;
     text-align: center;
 }
-
-
 /*---------------------------------------/
 #Footer
 /---------------------------------------*/
@@ -793,7 +767,7 @@ footer a{
     font-weight: 300;
 
 }
-  /*---------------------------------------/
+/*---------------------------------------/
 #Responsive Design
 /---------------------------------------*/
 
@@ -833,6 +807,7 @@ footer a{
 
     .our-menu.active .menu-icon {
         display: none;
+        margin-top: 20px;
     }
 
     .our-menu.active .exit-icon {
@@ -879,6 +854,9 @@ footer a{
     }
     .products-section h3{
        margin-top: 30px;
+    }
+    .dashboard-user {
+        margin-top: 125px;
     }
 }
 

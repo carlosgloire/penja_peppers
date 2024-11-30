@@ -1,30 +1,30 @@
 <?php
-session_start();
-require_once('controllers/database/db.php');
-require_once('controllers/functions.php');
-function logout2(){
-    if(isset($_POST['logout'])){
-        unset($_SESSION['user']);
-        unset($_SESSION['panier']);
-        unset( $_SESSION['role']);
-        header('location:../penjapeppers/');
-        exit();
+    session_start();
+    require_once('controllers/database/db.php');
+    require_once('controllers/functions.php');
+    function logout2(){
+        if(isset($_POST['logout'])){
+            unset($_SESSION['user']);
+            unset($_SESSION['panier']);
+            unset( $_SESSION['role']);
+            header('location:../penjapeppers/');
+            exit();
+        }
     }
-}
-logout2();
-// Calculate the total quantity of all orders
-$total_quantity = 0;
-if (isset($_SESSION['panier']) && !empty($_SESSION['panier'])) {
-    foreach ($_SESSION['panier'] as $item) {
-        $total_quantity += (isset($item['quantity']) ? $item['quantity'] : 0);
+    logout2();
+    // Calculate the total quantity of all orders
+    $total_quantity = 0;
+    if (isset($_SESSION['panier']) && !empty($_SESSION['panier'])) {
+        foreach ($_SESSION['panier'] as $item) {
+            $total_quantity += (isset($item['quantity']) ? $item['quantity'] : 0);
+        }
     }
-}
-$user = null;
-if (isset($_SESSION['user_id'])) {
-    $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
-    $query->execute(['user_id' => $_SESSION['user_id']]);
-    $user = $query->fetch();
-}
+    $user = null;
+    if (isset($_SESSION['user_id'])) {
+        $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
+        $query->execute(['user_id' => $_SESSION['user_id']]);
+        $user = $query->fetch();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,8 +59,6 @@ if (isset($_SESSION['user_id'])) {
         <header>
             <div class="logo"><img src="asset/images/logo.png" alt=""></div>
             <nav>
-                
-                
                 <ul class="nav-links">
                     <li><a href="#">Home</a></li>
                     <li><a href="pages/about.php">About us</a></li>
@@ -69,13 +67,9 @@ if (isset($_SESSION['user_id'])) {
                     <li><a href="pages/categories.php">Categories</a></li>
                     <li><a href="pages/contact.php">Contact us</a></li>
                 </ul>
-               
             </nav>
             <div class="header-icons">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search...">
-                    <i class="fas fa-search search-icon"></i>
-                </div>
+
                 <div class="cart-list">
                     <a class="cart" href="pages/cart.php"><i class="fas fa-shopping-cart"></i></a>
                     <span><?=$total_quantity > 0 ? $total_quantity:"0"?></span>
@@ -128,6 +122,11 @@ if (isset($_SESSION['user_id'])) {
      </section>
 
     <section class="home-section">
+        <?php
+            $query = $db->prepare('SELECT * FROM slides ');
+            $query->execute();
+            $images = $query->fetchAll();
+        ?>
         <div class="home-text">
             <h1>Welcome to Penja Peppers</h1>
             <p>We are delighted to have you here! At Penja Peppers, we pride ourselves on delivering premium quality products and exceptional service. Explore our offerings and let us bring the finest flavors to your table.</p>
@@ -136,23 +135,14 @@ if (isset($_SESSION['user_id'])) {
 
         <div class="home-images">
             <div class="gradient-overlay"></div>
-            <p><img class="home-bg" src="asset/images/products/1.jpg"></p>
-            <p><img class="home-bg" src="asset/images/products/10.png"></p>
-            <p><img class="home-bg" src="asset/images/products/11.png"></p>
-            <p><img class="home-bg" src="asset/images/products/2.jpg"></p>
-            <p><img class="home-bg" src="asset/images/products/8.1.png"></p>
-            <p><img class="home-bg" src="asset/images/products/4.1.jpg"></p>
-            <p><img class="home-bg" src="asset/images/products/5.1.jpg"></p>
+            <?php foreach ($images as $image): ?>
+                <p><img class="home-bg" src="pages/slides_images/<?=$image['photo']?>" alt=""></p>
+            <?php endforeach; ?>
         </div>
-
         <div class="circle-btn">
-            <div class="circle active"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
-            <div class="circle"></div>
+            <?php foreach ($images as $index => $image): ?>
+                <div class="circle <?= $index === 0 ? 'active' : ''; ?>"></div>
+            <?php endforeach; ?>
         </div>
     </section>
 
@@ -235,7 +225,7 @@ if (isset($_SESSION['user_id'])) {
         <h3>Products</h3>
         <div class="product-container">
             <?php
-                $stmt =$db->prepare('SELECT * FROM products ORDER BY product_id DESC LIMIT 8');
+                $stmt =$db->prepare('SELECT * FROM products WHERE stock > 0 ORDER BY product_id DESC LIMIT 4');
                 $stmt->execute();
                 $products=$stmt->fetchAll();
                 if(!$products){
@@ -358,7 +348,7 @@ if (isset($_SESSION['user_id'])) {
         <div class="writer">
             &copy;  <?= date("Y") ?> General consulting group ltd. All rights reserved.  Developed by SoftCreatix 
         </div>
-        <a href="">Terms of use and privacy policy</a>
+        <a href="pages/terms_policy.php">Refund and Cancellation Policy</a>
     </footer>
     <script src="asset/javascript/app.js"></script>
 </body>
@@ -366,7 +356,6 @@ if (isset($_SESSION['user_id'])) {
 <?php
 
 $database = require("controllers/mail/database.php");
-
 // Call the function to check stock and send email
 sendStockAlertEmail($database, 'ndayisabagloire96@gmail.com');
 ?>

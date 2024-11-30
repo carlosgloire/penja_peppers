@@ -1,9 +1,8 @@
-    <?php
+<?php
     session_start(); // Start the session
     require_once('mail/database.php');
     // Check if session variables are set and not empty
     if (!empty($_SESSION['fname']) && !empty($_SESSION['lname']) && !empty($_SESSION['email']) && !empty($_SESSION['phone']) && !empty($_SESSION['location'])  && !empty($_SESSION['password'])) {
-            
         $query = $mysqli->prepare("SELECT * FROM users WHERE firstname = ? AND lastname = ? AND email = ? ");
         $query->bind_param("sss", $_SESSION['fname'],$_SESSION['lname'],$_SESSION['email']);
         $query->execute();
@@ -34,6 +33,5 @@
         echo '<script>alert("Registration failed, please try again.");</script>';
         echo '<script>window.location.href="../pages/signup.php";</script>';
         exit;
-
     }
-    ?>
+?>

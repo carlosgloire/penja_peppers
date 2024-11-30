@@ -22,8 +22,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
-    <link rel="icon" href="asset/images/logo.png" type="image/png" sizes="16x16">
-    <link rel="stylesheet" href="../asset//css/styles.css">
+    <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="../asset/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -50,20 +50,22 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="../">Home</a></li>
+                    <li><a href="about.php">About us</a></li>
                     <li><a href="blog.php">Blog</a></li>
-                    <li><a href="products.php">Products</a></li>
                     <li><a href="categories.php">Categories</a></li>
                     <li><a href="contact.php">Contact us</a></li>
                 </ul>
-               
+                
             </nav>
             <div class="header-icons">
                 <div class="search-container">
-
+                    <input type="text" class="search-input" id="search-input" placeholder="Search..." onkeyup="liveSearch()">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
                 <div class="cart-list">
                     <a class="cart" href="cart.php"><i class="fas fa-shopping-cart"></i></a>
                     <span><?=$total_quantity > 0 ? $total_quantity:"0"?></span>
-                </div>                
+                </div>
                 <?php
                     if (isset($_SESSION['user']) && $_SESSION['user']){
                         ?>
@@ -81,7 +83,7 @@
                                         $admin=$user['role'];
                                         if($admin=='admin'){
                                             ?>
-                                                 <a href="../admin/adminDashboard.php">
+                                                    <a href="../admin/adminDashboard.php">
                                                     <i class="bi bi-clipboard-pulse"></i>
                                                     <span>Administration</span>
                                                 </a>
@@ -103,14 +105,13 @@
                             <?php
                     }
                 ?>
-                <div class="our-menu">
+                <div class="our-menu" >
                     <i class="bi bi-list menu-icon"></i>
                     <i class="bi bi-x exit-icon"></i>
                 </div>
             </div>
         </header>
-     </section>
-
+    </section>
 <!-- About Us Section -->
 
 <section class="about-us" >
@@ -161,7 +162,7 @@
     <div class="writer">
         &copy; <?= date("Y") ?> General consulting group ltd. All rights reserved.  Developed by SoftCreatix 
     </div>
-    <a href="">Terms of use and privacy policy</a>
+    <a href="terms_policy.php">Refund and Cancellation Policy</a>
 </footer>
 <script src="../asset/javascript/app.js"></script>
 </body>

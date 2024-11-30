@@ -1,64 +1,79 @@
 <?php 
-session_start();
-require_once('../controllers/functions.php');
-require_once('../controllers/database/db.php');
-logout();
-$user = null;
-if (isset($_SESSION['user_id'])) {
-    $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
-    $query->execute(['user_id' => $_SESSION['user_id']]);
-    $user = $query->fetch();
-}
+    session_start();
+    require_once('../controllers/functions.php');
+    require_once('../controllers/database/db.php');
+    logout();
+    $user = null;
+    if (isset($_SESSION['user_id'])) {
+        $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
+        $query->execute(['user_id' => $_SESSION['user_id']]);
+        $user = $query->fetch();
+    }
 
-$total_quantity = 0;
-$total_order_price = 0;
-$cart_items = [];
+    $total_quantity = 0;
+    $total_order_price = 0;
+    $cart_items = [];
 
-if (isset($_SESSION['panier']) && !empty($_SESSION['panier'])) {
-    $product_ids = array_column($_SESSION['panier'], 'product_id');
-    $placeholders = rtrim(str_repeat('?,', count($product_ids)), ',');
-    
-    // Fetch product details for all products in the cart
-    $stmt = $db->prepare("SELECT * FROM products WHERE product_id IN ($placeholders)");
-    $stmt->execute($product_ids);
-    $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    if (isset($_SESSION['panier']) && !empty($_SESSION['panier'])) {
+        $product_ids = array_column($_SESSION['panier'], 'product_id');
+        $placeholders = rtrim(str_repeat('?,', count($product_ids)), ',');
+        
+        // Fetch product details for all products in the cart
+        $stmt = $db->prepare("SELECT * FROM products WHERE product_id IN ($placeholders)");
+        $stmt->execute($product_ids);
+        $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Merge quantities from the session
-    $cart_details = [];
-    foreach ($_SESSION['panier'] as $cart_product) {
-        foreach ($cart_items as $product) {
-            if ($product['product_id'] == $cart_product['product_id']) {
-                $cart_details[] = [
-                    'product_id' => $product['product_id'],
-                    'name' => $product['name'],
-                    'photo' => $product['photo'],
-                    'price' => $product['price'],
-                    'quantity' => $cart_product['quantity'],
-                    'total_price' => $product['price'] * $cart_product['quantity'],
-                ];
-                $total_quantity += $cart_product['quantity'];
-                $total_order_price += $product['price'] * $cart_product['quantity'];
-                break;
+        // Merge quantities from the session
+        $cart_details = [];
+        foreach ($_SESSION['panier'] as $cart_product) {
+            foreach ($cart_items as $product) {
+                if ($product['product_id'] == $cart_product['product_id']) {
+                    $cart_details[] = [
+                        'product_id' => $product['product_id'],
+                        'name' => $product['name'],
+                        'photo' => $product['photo'],
+                        'price' => $product['price'],
+                        'quantity' => $cart_product['quantity'],
+                        'total_price' => $product['price'] * $cart_product['quantity'],
+                    ];
+                    $total_quantity += $cart_product['quantity'];
+                    $total_order_price += $product['price'] * $cart_product['quantity'];
+                    break;
+                }
             }
         }
+        $cart_items = $cart_details; // Replace with merged details
     }
-    $cart_items = $cart_details; // Replace with merged details
-}
 
-// Update cart quantities after form submission
-if (isset($_POST['update_cart'])) {
-    foreach ($_POST['quantities'] as $product_id => $quantity) {
-        // Update session quantities for each product
-        foreach ($_SESSION['panier'] as &$cart_product) {
-            if ($cart_product['product_id'] == $product_id) {
-                $cart_product['quantity'] = $quantity;
+    // Update cart quantities after form submission
+    if (isset($_POST['update_cart'])) {
+        foreach ($_POST['quantities'] as $product_id => $quantity) {
+            // Fetch the current stock for the product
+            $stmt = $db->prepare("SELECT stock ,name FROM products WHERE product_id = :product_id");
+            $stmt->execute(['product_id' => $product_id]);
+            $product = $stmt->fetch();
+            $product_name=$product['name'];
+
+            if ($product && $quantity > $product['stock']) {
+                // If quantity exceeds stock, show an alert and stop processing
+                echo "<script>
+                        alert('The quantity entered for $product_name is not available in stock.');
+                        window.location.href = 'cart.php';
+                    </script>";
+                exit();
+            }
+
+            // Update session quantities for each product
+            foreach ($_SESSION['panier'] as &$cart_product) {
+                if ($cart_product['product_id'] == $product_id) {
+                    $cart_product['quantity'] = $quantity;
+                }
             }
         }
+        // Optionally, you can redirect to refresh the page after updating the cart
+        header('Location: cart.php');
+        exit();
     }
-    // Optionally, you can redirect to refresh the page after updating the cart
-    header('Location: cart.php');
-    exit();
-}
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +81,7 @@ if (isset($_POST['update_cart'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>My cart</title>
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="../asset/css/styles.css">
     <link rel="stylesheet" href="../asset/css/cart.css">
@@ -82,7 +97,6 @@ if (isset($_POST['update_cart'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-
      <!-- Top Bar -->
      <section class="header">
         <div class="top-bar">
@@ -217,6 +231,8 @@ if (isset($_POST['update_cart'])) {
     };
     xhr.send();
 }
+
+
 
 </script>
 <script src="../asset/javascript/app.js"></script>

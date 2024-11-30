@@ -22,7 +22,7 @@ if (isset($_SESSION['user_id'])) {
 $stmt = $db->query("
     SELECT posts.*, 
            (SELECT COUNT(*) FROM likes WHERE likes.post_id = posts.post_id) AS like_count,
-           posts.image
+           posts.image , posts.post
     FROM posts
     ORDER BY posts.created_at DESC
 ");
@@ -82,42 +82,42 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <span><?=$total_quantity > 0 ? $total_quantity:"0"?></span>
             </div>
             <?php
-                    if (isset($_SESSION['user']) && $_SESSION['user']){
-                        ?>
-                            <div class="indicator">
-                                <div class="profile">
-                                    <p><a style="display: flex;" href="userDashboard.php"><img  src="profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"><i style="margin-top: 10px;" class="bi bi-three-dots-vertical"></i></a></p>
-                                </div>
-                                <div class="dashboard-user">
-                                    <a href="userDashboard.php">
-                                        <i class="bi bi-speedometer2"></i>
-                                        <span>Dashboard</span>
-                                    </a>
-
-                                    <?php
-                                        $admin=$user['role'];
-                                        if($admin=='admin'){
-                                            ?>
-                                                 <a href="../admin/adminDashboard.php">
-                                                    <i class="bi bi-clipboard-pulse"></i>
-                                                    <span>Administration</span>
-                                                </a>
-                                            <?php
-                                        }
-                                    ?>
-                                    <a href="pages/profile.php">
-                                        <i class="bi bi-person-check"></i>
-                                        <span>My profile</span>
-                                    </a>
-                                    <a   style="display: flex;align-items:center;gap:5px;;">
-                                        <i class="bi bi-box-arrow-in-right"></i>
-                                        <form action="" method="post" style="margin-top: -3px;">
-                                            <button name="logout"><span>Log out</span></button>
-                                        </form>
-                                    </a>
-                                </div>
+                if (isset($_SESSION['user']) && $_SESSION['user']){
+                    ?>
+                        <div class="indicator">
+                            <div class="profile">
+                                <p><a style="display: flex;" href="userDashboard.php"><img  src="profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"><i style="margin-top: 10px;" class="bi bi-three-dots-vertical"></i></a></p>
                             </div>
-                            <?php
+                            <div class="dashboard-user">
+                                <a href="userDashboard.php">
+                                    <i class="bi bi-speedometer2"></i>
+                                    <span>Dashboard</span>
+                                </a>
+
+                                <?php
+                                    $admin=$user['role'];
+                                    if($admin=='admin'){
+                                        ?>
+                                                <a href="../admin/adminDashboard.php">
+                                                <i class="bi bi-clipboard-pulse"></i>
+                                                <span>Administration</span>
+                                            </a>
+                                        <?php
+                                    }
+                                ?>
+                                <a href="pages/profile.php">
+                                    <i class="bi bi-person-check"></i>
+                                    <span>My profile</span>
+                                </a>
+                                <a   style="display: flex;align-items:center;gap:5px;;">
+                                    <i class="bi bi-box-arrow-in-right"></i>
+                                    <form action="" method="post" style="margin-top: -3px;">
+                                        <button name="logout"><span>Log out</span></button>
+                                    </form>
+                                </a>
+                            </div>
+                        </div>
+                        <?php
                     }
                 ?>
             <div class="our-menu">
@@ -131,6 +131,16 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h3 style="text-align: center;margin-bottom:10px">Recent Articles</h3>
     <div class="articles-section">
         <?php foreach ($blogs as $blog): ?> <!-- Loop through each blog post -->
+            <?php
+                    $likeCheckStmt = $db->prepare("
+                    SELECT 1 
+                    FROM likes 
+                    WHERE user_ip = ? AND post_id = ?
+                ");
+                $likeCheckStmt->execute([$_SERVER['REMOTE_ADDR'], $blog['post_id']]);
+                $blog['is_liked'] = $likeCheckStmt->fetchColumn() ? true : false;
+                
+                ?>
             <div class="blog-post" data-post-id="<?php echo $blog['post_id']; ?>">
                 <h4 class="title"><?php echo htmlspecialchars($blog['title']); ?></h4> <!-- Display blog title -->
                 <img class="image-article" src="../pages/posts_images/<?= $blog['image']; ?>" alt=""> <!-- Display image -->
@@ -139,11 +149,14 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <!-- Like button with dynamic like count -->
                 <div>
                     <button class="like-button">
-                        <i class="bi bi-hand-thumbs-up"></i> Like
+                        <i class="<?php echo $blog['is_liked'] ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up'; ?>"></i>
                     </button>
+
                     <span class="like-count"><?php echo $blog['like_count']; ?></span>
-                    <button class="share-button">
-                        <i class="bi bi-share"></i> Share
+                    <button class="share-button" 
+                            data-link="https://penjaspeppers.com/pages/blog.php?post=<?php echo $blog['post']; ?>" 
+                            data-image="../pages/posts_images/<?php echo $blog['image']; ?>">
+                            <i class="bi bi-share"></i> Share
                     </button>
                 </div>
 
@@ -171,10 +184,10 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                
                                 <span style="margin-left: 25px;font-weight:200" class="comment-text"><?php echo htmlspecialchars($comment['comment']); ?></span>
 
-                                <?php if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $comment['user_id']): ?> <!-- Check if the logged-in user owns the comment -->
+                                <?php if (isset($_SESSION['user']) && $_SESSION['user_id'] == $comment['user_id']): ?> <!-- Check if the logged-in user owns the comment -->
                                     <!-- Edit and Delete buttons -->
-                                    <button class="edit-comment">Edit</button>
-                                    <button class="delete-comment">Delete</button>
+                                    <button style="margin-left: 40px;" title="Delete this comment" class="delete-comment post-button-delete"><i class="bi bi-trash3"></i></button>
+                                    <button title="Edit this comment" class="edit-comment post-button-edit"><i class="bi bi-pen"></i></button>
                                 <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
@@ -197,145 +210,21 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </div>
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-    const likeButtons = document.querySelectorAll('.like-button'); // Select all like buttons
-
-    // Handle like button click
-    likeButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const postId = this.closest('.blog-post').dataset.postId;
-
-            fetch('like.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ post_id: postId }) // Send post ID in request body
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    this.classList.toggle('liked'); // Toggle liked state
-                    this.nextElementSibling.textContent = data.like_count; // Update like count
-                } else {
-                    alert(data.message || 'Error liking the post.');
-                }
-            })
-            .catch(() => alert('An unexpected error occurred.'));
-        });
-    });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    // Get all "View more comments" buttons
-    const toggleButtons = document.querySelectorAll(".toggle-comments");
-
-    toggleButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            // Find the comments container within the same post
-            const commentSection = this.closest(".comment-section");
-            const comments = commentSection.querySelectorAll(".comment");
-
-            // Check if currently viewing more or less
-            const isExpanded = this.textContent === "View less comments";
-
-            if (isExpanded) {
-                // Hide all but the first two comments
-                comments.forEach((comment, index) => {
-                    if (index > 1) comment.classList.add("hidden");
-                });
-                this.textContent = "View more comments";
-            } else {
-                // Show all comments
-                comments.forEach(comment => comment.classList.remove("hidden"));
-                this.textContent = "View less comments";
-            }
-        });
-    });
-});
-
-
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-    // Edit comment functionality
-    const editButtons = document.querySelectorAll(".edit-comment");
-    editButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const commentDiv = this.closest(".comment");
-            const commentText = commentDiv.querySelector(".comment-text");
-            const commentId = commentDiv.getAttribute("data-comment-id");
-
-            // Replace the comment text with a textarea for editing
-            const textarea = document.createElement("textarea");
-            textarea.value = commentText.textContent.trim();
-            commentDiv.replaceChild(textarea, commentText);
-
-            // Create Save button
-            const saveButton = document.createElement("button");
-            saveButton.textContent = "Save";
-            commentDiv.appendChild(saveButton);
-
-            // Handle Save
-            saveButton.addEventListener("click", function () {
-                const updatedComment = textarea.value;
-
-                // Send AJAX request to update comment
-                fetch("edit_comment.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: `comment_id=${commentId}&comment=${encodeURIComponent(updatedComment)}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Update the comment text on the page
-                        const newCommentText = document.createElement("span");
-                        newCommentText.classList.add("comment-text");
-                        newCommentText.textContent = updatedComment;
-                        commentDiv.replaceChild(newCommentText, textarea);
-                        saveButton.remove(); // Remove Save button
-                    } else {
-                        alert("Error updating comment!");
-                    }
-                });
-            });
-        });
-    });
-
-    // Delete comment functionality
-    const deleteButtons = document.querySelectorAll(".delete-comment");
-    deleteButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            const commentDiv = this.closest(".comment");
-            const commentId = commentDiv.getAttribute("data-comment-id");
-
-            // Confirm deletion
-            if (confirm("Are you sure you want to delete this comment?")) {
-                // Send AJAX request to delete comment
-                fetch("delete_comment.php", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    body: `comment_id=${commentId}`
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        commentDiv.remove(); // Remove comment from the page
-                    } else {
-                        alert("Error deleting comment!");
-                    }
-                });
-            }
-        });
-    });
-});
-
-</script>
+<!-- Share Popup -->
+<!-- Share Popup -->
+ <div class="popup-container">
+    <div id="share-popup" style="display: none; position: fixed; top: 20%; left: 35%; background: #fff; padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.2); z-index: 1000; border-radius: 10px; text-align: center;">
+        <h4>Share this post</h4>
+        <div class="media-sociaux" style="margin: 15px 0;">
+            <a id="share-facebook" href="#" target="_blank" style="margin: 0 10px;"><i style="color: #0080f7;" class='bx bxl-facebook'></i></a>
+            <a id="share-twitter" href="#" target="_blank" style="margin: 0 10px;"><i style="color: #000000;" class="fa-brands fa-x-twitter"></i></a>
+            <a id="share-whatsapp" href="#" target="_blank" style="margin: 0 10px;"><i style="color: #41d251;" class='bx bxl-whatsapp'></i></a>
+            <a id="share-linkedin" href="#" target="_blank" style="margin: 0 10px;"><i style="color: #1DA1F2;" class='bx bxl-linkedin'></i></a>
+        </div>
+        <button id="close-popup" style="margin-top: 10px; background: initial; color: #3c8cc9; cursor: pointer; "><i class="bi bi-x-circle"></i></button>
+    </div>
+ </div>
+<script src="../asset/javascript/app.js"></script>
+<script src="../asset/javascript/blog.js"></script>
 </body>
 </html>

@@ -52,6 +52,7 @@
 .delete{
     display: grid;
     gap: 10px;
+    -webkit-column-gap: 10px;
     padding-right: 20px;
 }
 .delete button {
@@ -92,7 +93,6 @@
     justify-content: center;
     -webkit-column-gap: 10px;
 }
-
 .our-buttons button , .order-now{
     border: none;
     color: #fff;

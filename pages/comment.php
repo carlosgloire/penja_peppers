@@ -10,16 +10,16 @@
         $user = $query->fetch();
     }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    notconnected();
-    $postId = $_POST['post_id'];
-    $comment = $_POST['comment'];
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        notconnected();
+        $postId = $_POST['post_id'];
+        $comment = $_POST['comment'];
 
 
-    $stmt = $db->prepare("INSERT INTO comments (post_id, user_id, comment) VALUES (?, ?, ?)");
-    $stmt->execute([$postId, $_SESSION['user_id'], $comment]);
+        $stmt = $db->prepare("INSERT INTO comments (post_id, user_id, comment) VALUES (?, ?, ?)");
+        $stmt->execute([$postId, $_SESSION['user_id'], $comment]);
 
-    header("Location: " . $_SERVER['HTTP_REFERER']);
-    exit;
-}
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
 ?>

@@ -111,7 +111,7 @@
      </section>
 
     <!-- Contacts -->
-    <section class="contact" id="contacts">
+    <section style="margin-bottom: 40px;" class="contact" id="contacts">
         <div class="title">
             <h3>Contactez-nous</h3>
         </div>
@@ -154,6 +154,12 @@
             </div>
         </div>
     </section>
+    <footer>
+        <div class="writer">
+            &copy;  <?= date("Y") ?> General consulting group ltd. All rights reserved.  Developed by SoftCreatix 
+        </div>
+        <a href="terms_policy.php">Refund and Cancellation Policy</a>
+    </footer>
 <script src="../asset/javascript/app.js"></script>
 </body>
 </html>    

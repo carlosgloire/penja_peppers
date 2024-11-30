@@ -1,12 +1,13 @@
+/*-----------------------------------/
+#Payment history table
+/-----------------------------------*/
 .container {
-
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     font-weight: 200;
     width: 100%;
-
 }
 
 h3 {

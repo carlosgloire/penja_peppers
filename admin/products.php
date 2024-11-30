@@ -1,18 +1,16 @@
 <?php
-session_start();
-require_once('../controllers/database/db.php');
-require_once('../controllers/functions.php');
-notAdmin();
-logout();
-
-$user = null;
-if (isset($_SESSION['user_id'])) {
-    $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
-    $query->execute(['user_id' => $_SESSION['user_id']]);
-    $user = $query->fetch();
-}
+    session_start();
+    require_once('../controllers/database/db.php');
+    require_once('../controllers/functions.php');
+    notAdmin();
+    logout();
+    $user = null;
+    if (isset($_SESSION['user_id'])) {
+        $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
+        $query->execute(['user_id' => $_SESSION['user_id']]);
+        $user = $query->fetch();
+    }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,10 +36,10 @@ if (isset($_SESSION['user_id'])) {
       <aside>
         <nav>
           <div class="title" style="font-size: 0.8rem;">
-                <div class="profile">
-                    <p><img src="../pages/profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"></p>
-                </div>
-                <h3 style="margin-top: -10px;"><?=$user['firstname']?> <?=$user['lastname']?></h3>
+            <div class="profile">
+                <p><img src="../pages/profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"></p>
+            </div>
+            <h3 style="margin-top: -10px;"><?=$user['firstname']?> <?=$user['lastname']?></h3>
           </div>
           <div >
             <i class="bi bi-speedometer2"></i>
@@ -60,8 +58,12 @@ if (isset($_SESSION['user_id'])) {
             <a href="posts.php">Posts</a>
           </div>
           <div >
-                <i class="bi bi-envelope"></i>
-                <a href="news-letter.php">News letter</a>
+            <i class="bi bi-images"></i>
+            <a href="slides.php">Slides</a>
+          </div>
+          <div >
+            <i class="bi bi-envelope"></i>
+            <a href="news-letter.php">News letter</a>
           </div>
           <div>
             <i class="bi bi-credit-card-2-front"></i>
@@ -78,10 +80,14 @@ if (isset($_SESSION['user_id'])) {
         </div>
         <div class="products-section" >
             <h3>Products</h3>
-            <div class="add-product">
-                <a href="add_product.php">Add a product</a>
+            <div class="display:flex;justify-content:space-between;width:100%">
+                <input id="search-input" style="width:300px;padding:8px;border-radius:30px;border: 1px solid gray;outline:none; font-family: 'Outfit', sans-serif;" type="text" class="search" placeholder="Search..." onkeyup="liveSearch()">
+                <div class="add-product">
+                    <a href="add_product.php">Add a product</a>
+                </div>
             </div>
-            <div class="product-container" style="overflow:auto;height:440px; background-color:#fff;padding:10px;border-radius:10px">
+
+            <div class="product-container" id="product-container" style="overflow:auto;height:440px; background-color:#fff;padding:10px;border-radius:10px">
                 <?php
                     $stmt =$db->prepare('SELECT * FROM products ORDER BY product_id DESC');
                     $stmt->execute();
@@ -126,7 +132,6 @@ if (isset($_SESSION['user_id'])) {
                                             </div>
                                         <?php
                                     ?>
-                                
                                     <p>Available stock: <?=$product['stock']?></p>
                                     <div class="buy">
                                         <p>$<?=$product['price']?></p>
@@ -147,6 +152,22 @@ if (isset($_SESSION['user_id'])) {
     </div>
     <?=popup_delete_product()?>
     </section>
+    <script>
+            function liveSearch() {
+            var searchQuery = document.getElementById('search-input').value;
+
+            // Perform AJAX request to search products
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'search_products.php?query=' + searchQuery, true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Update the product container with the search results
+                    document.getElementById('product-container').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send();
+        }
+    </script>
     <script src="../asset/javascript/delete_product.js"></script>
 </body>
 </html>

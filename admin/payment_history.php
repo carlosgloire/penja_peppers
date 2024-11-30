@@ -1,48 +1,47 @@
 <?php
-session_start();
-require_once('../controllers/database/db.php');
-require_once('../controllers/functions.php');
-notAdmin();
-logout();
+    session_start();
+    require_once('../controllers/database/db.php');
+    require_once('../controllers/functions.php');
+    notAdmin();
+    logout();
+    $user = null;
+    if (isset($_SESSION['user_id'])) {
+        $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
+        $query->execute(['user_id' => $_SESSION['user_id']]);
+        $user = $query->fetch();
+    }
 
-$user = null;
-if (isset($_SESSION['user_id'])) {
-    $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
-    $query->execute(['user_id' => $_SESSION['user_id']]);
-    $user = $query->fetch();
-}
+    $sql = "
+    SELECT 
+        u.firstname,
+        u.lastname,
+        p.payment_date, 
+        SUM(oiu.quantity) AS shoes_purchased, 
+        p.payment_method, 
+        p.amount, 
+        p.status 
+    FROM 
+        payment p 
+    JOIN 
+        orders ou ON p.order_id = ou.order_id 
+    JOIN 
+        order_item oiu ON ou.order_id = oiu.order_id 
+    JOIN 
+        users u ON ou.user_id = u.user_id
+    GROUP BY 
+        u.firstname, 
+        u.lastname, 
+        p.payment_date, 
+        p.payment_method, 
+        p.amount, 
+        p.status
+    ORDER BY
+        p.payment_date DESC  
+    ";
 
-$sql = "
-SELECT 
-    u.firstname,
-    u.lastname,
-    p.payment_date, 
-    SUM(oiu.quantity) AS shoes_purchased, 
-    p.payment_method, 
-    p.amount, 
-    p.status 
-FROM 
-    payment p 
-JOIN 
-    orders ou ON p.order_id = ou.order_id 
-JOIN 
-    order_item oiu ON ou.order_id = oiu.order_id 
-JOIN 
-    users u ON ou.user_id = u.user_id
-GROUP BY 
-    u.firstname, 
-    u.lastname, 
-    p.payment_date, 
-    p.payment_method, 
-    p.amount, 
-    p.status
-ORDER BY
-    p.payment_date DESC  
-";
-
-$stmt = $db->prepare($sql);
-$stmt->execute();
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -71,18 +70,18 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <aside>
         <nav>
           <div class="title" style="font-size: 0.8rem;">
-                <div class="profile">
-                    <p><img src="../pages/profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"></p>
-                </div>
-                <h3 style="margin-top: -10px;"><?=$user['firstname']?> <?=$user['lastname']?></h3>
+              <div class="profile">
+                  <p><img src="../pages/profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"></p>
+              </div>
+              <h3 style="margin-top: -10px;"><?=$user['firstname']?> <?=$user['lastname']?></h3>
           </div>
           <div >
             <i class="bi bi-speedometer2"></i>
             <a href="adminDashboard.php">Dashboard</a>
           </div>
           <div >
-                <i class="bi bi-dropbox"></i>
-                <a href="products.php">Products</a>
+            <i class="bi bi-dropbox"></i>
+            <a href="products.php">Products</a>
           </div>
           <div>
             <i class="bi bi-basket2-fill"></i>
@@ -93,8 +92,12 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="posts.php">Posts</a>
           </div>
           <div >
-                <i class="bi bi-envelope"></i>
-                <a href="news-letter.php">News letter</a>
+            <i class="bi bi-images"></i>
+            <a href="slides.php">Slides</a>
+          </div>
+          <div >
+            <i class="bi bi-envelope"></i>
+            <a href="news-letter.php">News letter</a>
           </div>
           <div class="activ">
             <i class="bi bi-credit-card-2-front"></i>
@@ -111,7 +114,6 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
         <div class="second-bloc container" style="margin-top: 20px;" >
             <h3 style="text-align: center;margin-top:20px;margin-bottom:10px">Payment history</h3>
-
             <table sty>
                 <tr>
                     <th style="text-align: left;">Name</th>

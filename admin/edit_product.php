@@ -1,12 +1,10 @@
 <?php
-
     session_start();
     require_once('../controllers/edit_product.php');
     require_once('../controllers/database/db.php');
     require_once('../controllers/functions.php');
     notAdmin();
     logout();
-    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,25 +31,18 @@
             <h3>Update Product</h3>
             <div>
                 <input type="text" name="name" placeholder="Product Name" value="<?= htmlspecialchars($name) ?>" required>
-                
                 <select name="category">
                     <option value="Peppers" <?= $category == 'Peppers' ? 'selected' : '' ?>>Peppers</option>
                     <option value="Chocolates" <?= $category == 'Chocolates' ? 'selected' : '' ?>>Chocolates</option>
                     <option value="Cigars" <?= $category == 'Cigars' ? 'selected' : '' ?>>Cigars</option>
                     <option value="Other" <?= $category == 'Other' ? 'selected' : '' ?>>Other</option>
                 </select>
-                
                 <textarea name="description" placeholder="Product description" rows="4" required><?= htmlspecialchars($description) ?></textarea>
-                
                 <input type="number" name="stock" placeholder="Stock Quantity" value="<?= htmlspecialchars($stock) ?>" min="0" required>
-                
                 <input type="number" name="price" placeholder="Product Price" value="<?= htmlspecialchars($price) ?>" required>
-                
                 <p style="text-align: left;">Product Photo</p>
                 <input type="file" name="uploadfile" accept="image/*">
-                
                 <input class="button" type="submit" name="update_product" value="Update Product">
-                
                 <div class="errors-management">
                     <p class="error"><?= $error ?></p>
                     <p class="success"><?= $success ?></p>

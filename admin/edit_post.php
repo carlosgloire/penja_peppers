@@ -25,14 +25,10 @@
             <h3>Edit Post</h3>
             <div>
                 <input type="text" name="title" placeholder="Post Title" value="<?= isset($title) ? $title : '' ?>" required>
-
                 <textarea name="content" placeholder="Post content" rows="6" required><?= isset($content) ? $content : '' ?></textarea>
-
                 <p style="text-align: left;">Post Photo</p>
                 <input type="file" name="uploadfile" accept="image/*">
-
                 <input class="button" type="submit" name="update_post" value="Update Post">
-
                 <div class="errors-management">
                     <p class="error"><?= $error ?></p>
                 </div>

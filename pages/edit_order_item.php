@@ -1,78 +1,75 @@
 <?php
-session_start();
-require_once('../controllers/functions.php');
-require_once('../controllers/database/db.php');
+    session_start();
+    require_once('../controllers/functions.php');
+    require_once('../controllers/database/db.php');
 
-notconnected();
+    notconnected();
 
-if (!isset($_GET['order_item_id']) || empty($_GET['order_item_id'])) {
-    echo '<script>alert("No order item ID provided.");</script>';
-    echo '<script>window.location.href="dashboard.php";</script>';
-    exit;
-}
-if (!isset($_GET['order_id']) || empty($_GET['order_id'])) {
-    echo '<script>alert("No order ID provided.");</script>';
-    echo '<script>window.location.href="dashboard.php";</script>';
-    exit;
-}
-
-$order_item_id = $_GET['order_item_id'];
-$order_id = $_GET['order_id'];
-
-// Fetch the order item details
-$query = $db->prepare("SELECT oi.*, p.name AS product_name, p.photo, p.price, p.product_id
-                       FROM order_item oi
-                       JOIN products p ON oi.product_id = p.product_id
-                       WHERE oi.order_item_id = ?");
-$query->execute([$order_item_id]);
-$order_item = $query->fetch(PDO::FETCH_ASSOC);
-
-if (!$order_item) {
-    echo '<script>alert("Order item not found.");</script>';
-    echo '<script>window.location.href="dashboard.php";</script>';
-    exit;
-}
-
-// Fetch all products for the dropdown
-$products_query = $db->prepare("SELECT * FROM products");
-$products_query->execute();
-$products = $products_query->fetchAll(PDO::FETCH_ASSOC);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $product_id = $_POST['product_id'];
-    $quantity = $_POST['quantity'];
-
-    // Fetch the available stock of the selected product
-    $stock_query = $db->prepare("SELECT stock FROM products WHERE product_id = ?");
-    $stock_query->execute([$product_id]);
-    $available_stock = $stock_query->fetchColumn();
-
-    if ($quantity > $available_stock) {
-        echo '<script>alert("The quantity entered is unavailable. Available stock: ' . htmlspecialchars($available_stock) . '");</script>';
-        echo '<script>window.location.href="edit_order.php?order_item_id=' . htmlspecialchars($order_item_id) . '&order_id=' . htmlspecialchars($order_id) . '";</script>';
+    if (!isset($_GET['order_item_id']) || empty($_GET['order_item_id'])) {
+        echo '<script>alert("No order item ID provided.");</script>';
+        echo '<script>window.location.href="dashboard.php";</script>';
+        exit;
+    }
+    if (!isset($_GET['order_id']) || empty($_GET['order_id'])) {
+        echo '<script>alert("No order ID provided.");</script>';
+        echo '<script>window.location.href="dashboard.php";</script>';
         exit;
     }
 
-    // Fetch the price of the selected product
-    $price_query = $db->prepare("SELECT price FROM products WHERE product_id = ?");
-    $price_query->execute([$product_id]);
-    $price = $price_query->fetchColumn();
+    $order_item_id = $_GET['order_item_id'];
+    $order_id = $_GET['order_id'];
 
-    // Calculate the total price
-    $total_price = $price * $quantity;
+    // Fetch the order item details
+    $query = $db->prepare("SELECT oi.*, p.name AS product_name, p.photo, p.price, p.product_id
+        FROM order_item oi
+        JOIN products p ON oi.product_id = p.product_id
+        WHERE oi.order_item_id = ?");
+    $query->execute([$order_item_id]);
+    $order_item = $query->fetch(PDO::FETCH_ASSOC);
 
-    // Update the order_item table
-    $update_query = $db->prepare("UPDATE order_item 
-                                  SET product_id = ?, quantity = ?, total_price = ? 
-                                  WHERE order_item_id = ?");
-    $update_query->execute([$product_id, $quantity, $total_price, $order_item_id]);
+    if (!$order_item) {
+        echo '<script>alert("Order item not found.");</script>';
+        echo '<script>window.location.href="dashboard.php";</script>';
+        exit;
+    }
 
-    echo '<script>alert("Order item updated successfully.");</script>';
-    echo '<script>window.location.href="userDashboard.php";</script>';
-}
+    // Fetch all products for the dropdown
+    $products_query = $db->prepare("SELECT * FROM products");
+    $products_query->execute();
+    $products = $products_query->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $product_id = $_POST['product_id'];
+        $quantity = $_POST['quantity'];
+
+        // Fetch the available stock of the selected product
+        $stock_query = $db->prepare("SELECT stock FROM products WHERE product_id = ?");
+        $stock_query->execute([$product_id]);
+        $available_stock = $stock_query->fetchColumn();
+
+        if ($quantity > $available_stock) {
+            echo '<script>alert("The quantity entered is unavailable. Available stock: ' . htmlspecialchars($available_stock) . '");</script>';
+            echo '<script>window.location.href="edit_order.php?order_item_id=' . htmlspecialchars($order_item_id) . '&order_id=' . htmlspecialchars($order_id) . '";</script>';
+            exit;
+        }
+
+        // Fetch the price of the selected product
+        $price_query = $db->prepare("SELECT price FROM products WHERE product_id = ?");
+        $price_query->execute([$product_id]);
+        $price = $price_query->fetchColumn();
+
+        // Calculate the total price
+        $total_price = $price * $quantity;
+
+        // Update the order_item table
+        $update_query = $db->prepare("UPDATE order_item 
+                SET product_id = ?, quantity = ?, total_price = ? 
+                WHERE order_item_id = ?");
+        $update_query->execute([$product_id, $quantity, $total_price, $order_item_id]);
+        echo '<script>alert("Order item updated successfully.");</script>';
+        echo '<script>window.location.href="userDashboard.php";</script>';
+    }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
     <section class="login-section">
         <form action="" method="post">

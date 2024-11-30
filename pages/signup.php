@@ -39,7 +39,6 @@
                 <input type="password" placeholder="Enter your password" name="password">
                 <input class="button" type="submit" name="register" value="Sign in">
                 <p class="forgot">Already have an account ? <a href="login.php">sign in here</a></p>
-
             </div>
         </form>
     </section>

@@ -1,41 +1,41 @@
 <?php
-session_start();
-require_once('../controllers/database/db.php');
-require_once('../controllers/functions.php');
-notconnected();
+    session_start();
+    require_once('../controllers/database/db.php');
+    require_once('../controllers/functions.php');
+    notconnected();
 
-if (!isset($_SESSION['order_id']) || !isset($_SESSION['user_id'])) {
-    header('Location: cart.php');
-    exit();
-}
+    if (!isset($_SESSION['order_id']) || !isset($_SESSION['user_id'])) {
+        header('Location: cart.php');
+        exit();
+    }
 
-$order_id = $_SESSION['order_id'];
-$user_id = $_SESSION['user_id'];
+    $order_id = $_SESSION['order_id'];
+    $user_id = $_SESSION['user_id'];
 
-// Fetch order details
-$order_query = $db->prepare('SELECT * FROM orders WHERE order_id = ?');
-$order_query->execute([$order_id]);
-$order = $order_query->fetch();
+    // Fetch order details
+    $order_query = $db->prepare('SELECT * FROM orders WHERE order_id = ?');
+    $order_query->execute([$order_id]);
+    $order = $order_query->fetch();
 
-if (!$order) {
-    header('Location: cart.php');
-    exit();
-}
+    if (!$order) {
+        header('Location: cart.php');
+        exit();
+    }
 
-$quantity_query = $db->prepare('SELECT SUM(quantity) AS total_quantity FROM order_item WHERE order_id = ?');
-$quantity_query->execute([$order_id]);
-$order_quantity = $quantity_query->fetchColumn();
-$totalorder_dollars = $order['total_amount'] ;
-$totalorder = $order['total_amount'] * 1380;
-// Fetch user details
-$user_query = $db->prepare('SELECT email, phone, firstname, lastname FROM users WHERE user_id = ?');
-$user_query->execute([$user_id]);
-$user = $user_query->fetch();
+    $quantity_query = $db->prepare('SELECT SUM(quantity) AS total_quantity FROM order_item WHERE order_id = ?');
+    $quantity_query->execute([$order_id]);
+    $order_quantity = $quantity_query->fetchColumn();
+    $totalorder_dollars = $order['total_amount'] ;
+    $totalorder = $order['total_amount'] * 1380;
+    // Fetch user details
+    $user_query = $db->prepare('SELECT email, phone, firstname, lastname FROM users WHERE user_id = ?');
+    $user_query->execute([$user_id]);
+    $user = $user_query->fetch();
 
-if (!$user) {
-    header('Location: cart.php');
-    exit();
-}
+    if (!$user) {
+        header('Location: cart.php');
+        exit();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">

@@ -26,7 +26,7 @@
         echo '<script>alert("Product not found.");</script>';
         echo '<script>window.location.href="../";</script>';
     }
-    
+
     $user = null;
     if (isset($_SESSION['user_id'])) {
         $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
@@ -57,13 +57,13 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.0/css/boxicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../asset/css/styles.css">
     <link rel="stylesheet" href="../asset/css/review_details.css">
     <link rel="stylesheet" href="../asset/css/product_detail.css">
+    <link rel="stylesheet" href="../asset/css/styles.css">
 </head>
 <body>
       <!-- Top Bar -->
-      <section class="header">
+    <section class="header">
         <div class="top-bar">
             <div class="moving-text">
                 <div class="text">Free Shipping on All Orders Over $500 </div>
@@ -78,21 +78,20 @@
                     <li><a href="../">Home</a></li>
                     <li><a href="about.php">About us</a></li>
                     <li><a href="blog.php">Blog</a></li>
-                    <li><a href="products.php">Products</a></li>
                     <li><a href="categories.php">Categories</a></li>
                     <li><a href="contact.php">Contact us</a></li>
                 </ul>
-               
+                
             </nav>
             <div class="header-icons">
                 <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Search...">
+                    <input type="text" class="search-input" id="search-input" placeholder="Search..." onkeyup="liveSearch()">
                     <i class="fas fa-search search-icon"></i>
                 </div>
                 <div class="cart-list">
                     <a class="cart" href="cart.php"><i class="fas fa-shopping-cart"></i></a>
                     <span><?=$total_quantity > 0 ? $total_quantity:"0"?></span>
-                </div>                
+                </div>
                 <?php
                     if (isset($_SESSION['user']) && $_SESSION['user']){
                         ?>
@@ -110,7 +109,7 @@
                                         $admin=$user['role'];
                                         if($admin=='admin'){
                                             ?>
-                                                 <a href="../admin/adminDashboard.php">
+                                                    <a href="../admin/adminDashboard.php">
                                                     <i class="bi bi-clipboard-pulse"></i>
                                                     <span>Administration</span>
                                                 </a>
@@ -132,20 +131,17 @@
                             <?php
                     }
                 ?>
-                <div class="our-menu">
+                <div class="our-menu" >
                     <i class="bi bi-list menu-icon"></i>
                     <i class="bi bi-x exit-icon"></i>
                 </div>
             </div>
         </header>
-     </section>
-
+    </section>
     <div class="product-container">
-
         <div class="product-photo">
           <img src="productS_images/<?=$product_image?>" alt="Product Photo" />
         </div>
-      
         <!-- Product Details -->
         <div class="product-details">
           <h3> <?=$category?></h3>
@@ -158,7 +154,7 @@
             <form action="../controllers/add_to_cart.php" method="post">
                 <input type="hidden" name="product_id" value="<?=$product_id?>">
                 <label for="quantity">Quantity:</label>
-                <input type="number" id="quantity" name="quantity" value="1" min="1" max="25" />
+                <input type="number" id="quantity" name="quantity" value="1" min="1" max="<?=$stock?>" />
                 <button name="add_to_cart">Add to Cart</button>
             </form>
           </div>
@@ -311,7 +307,6 @@
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </div>
-
                     <!-- Show More / Less button -->
                     <p style="cursor: pointer; color:#3498db" id="toggle-reviews" onclick="toggleReviews()">Show More Reviews</p>
                 <?php endif; ?>
@@ -322,9 +317,6 @@
             <?php endif; ?>
         </div>
     </div>
-
-
-
     <?php
         // Fetch similar products excluding the current product
         $stmt = $db->prepare("SELECT * FROM products WHERE category = ? AND product != ? ORDER BY product_id DESC");
@@ -358,7 +350,6 @@
                         <img src="products_images/<?= htmlspecialchars($similar_product['photo']) ?>" alt="Product Image">
                     </a>
                     <h4><?= htmlspecialchars($similar_product['name']) ?></h4>
-                    
                     <?php
                     // Fetch average rating for the current product
                     $sql = 'SELECT AVG(rating) as avg_rating FROM reviews WHERE product_id = ?';
@@ -367,7 +358,6 @@
                     $result = $stmt->fetch();
                     $avg_rating = round($result['avg_rating'], 1);
                     ?>
-                    
                     <div class="stars">
                         <div>
                             <?php
@@ -399,9 +389,28 @@
 
     </div>
 </div>
+<footer>
+    <div class="writer">
+        &copy;  <?= date("Y") ?> General consulting group ltd. All rights reserved.  Developed by SoftCreatix 
+    </div>
+    <a href="terms_policy.php">Refund and Cancellation Policy</a>
+</footer>
 
     <?php endif; ?>
     <script src="../asset/javascript/app.js"></script>
-    <script src="../asset/javascript/carrousel.js"></script>    
+    <script src="../asset/javascript/carrousel.js"></script>
+    <script>
+    // JavaScript to validate quantity input
+    function validateQuantity() {
+        const stock = parseInt(document.getElementById('stock-count').textContent);
+        const quantity = parseInt(document.getElementById('quantity').value);
+
+        if (quantity > stock) {
+            alert('The quantity entered is not available in stock.');
+            return false;
+        }
+        return true;
+    }
+    </script>    
 </body>
 </html>

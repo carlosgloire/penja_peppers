@@ -12,10 +12,10 @@
 .contact .contact-info .info {
     display: flex;
     gap: 10px;
+    -webkit-column-gap: 10px;
     margin-top: 10px;
     align-items: center;
     -webkit-column-gap: 10px;
-
 }
 
 .contact .contact-info .info div {
@@ -78,16 +78,15 @@ textarea {
     transition-delay: 0.4s;
     transition: 0.8s ease-in-out;
     cursor: pointer;
-
 }
 
 .contact .contact-input button:hover {
     opacity: 0.8;
 }
 
-
-
-/* Media query */
+/*-----------------------------------/
+#Media query contact
+/-----------------------------------*/
 @media screen and (max-width: 980px){
     .contact {
         padding-left: 30px;

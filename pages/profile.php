@@ -1,39 +1,39 @@
 <?php
-session_start();
-require_once('../controllers/database/db.php');
-require_once('../controllers/delete_account.php');
-require_once('../controllers/functions.php');
-require_once('../controllers/update_userprofile.php');
-notconnected();
-logout();
-if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
-    $user_id = $_GET['user_id'];
-    $_SESSION['user_id'] = $user_id; // Ensure session user_id is set
-} elseif (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-} else {
-    echo '<script>alert("No user ID provided.");</script>';
-    echo '<script>window.location.href="templates/";</script>';
-    exit;
-}
+  session_start();
+  require_once('../controllers/database/db.php');
+  require_once('../controllers/delete_account.php');
+  require_once('../controllers/functions.php');
+  require_once('../controllers/update_userprofile.php');
+  notconnected();
+  logout();
+  if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
+      $user_id = $_GET['user_id'];
+      $_SESSION['user_id'] = $user_id; // Ensure session user_id is set
+  } elseif (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
+      $user_id = $_SESSION['user_id'];
+  } else {
+      echo '<script>alert("No user ID provided.");</script>';
+      echo '<script>window.location.href="templates/";</script>';
+      exit;
+  }
 
-$query = $db->prepare('SELECT * FROM users WHERE user_id = ?');
-$query->execute([$user_id]);
-$user = $query->fetch();
+  $query = $db->prepare('SELECT * FROM users WHERE user_id = ?');
+  $query->execute([$user_id]);
+  $user = $query->fetch();
 
-if ($user) {
-    $photo = $user['photo'];
-    $fname = $user['firstname'];
-    $lname = $user['lastname'];
-    $email = $user['email'];
-    $phone = $user['phone'];
-    $location_fetched = $user['location'];
+  if ($user) {
+      $photo = $user['photo'];
+      $fname = $user['firstname'];
+      $lname = $user['lastname'];
+      $email = $user['email'];
+      $phone = $user['phone'];
+      $location_fetched = $user['location'];
 
-} else {
-    echo '<script>alert("User ID not found.");</script>';
-    echo '<script>window.location.href="templates/";</script>';
-    exit;
-}
+  } else {
+      echo '<script>alert("User ID not found.");</script>';
+      echo '<script>window.location.href="templates/";</script>';
+      exit;
+  }
 ?>
 
 <!DOCTYPE html>

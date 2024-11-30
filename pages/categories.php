@@ -14,8 +14,24 @@
         foreach ($_SESSION['panier'] as $item) {
             $total_quantity += (isset($item['quantity']) ? $item['quantity'] : 0);
         }
-    }  
+    }
+
+    // Get category from query string or default to 'All'
+    $category_query = isset($_GET['category']) ? $_GET['category'] : 'All';
+
+    // Fetch products based on selected category
+    if ($category_query == 'All') {
+        // Fetch all products if 'All' category is selected
+        $stmt = $db->prepare("SELECT * FROM products WHERE stock > 0 ORDER BY product_id DESC");
+        $stmt->execute();
+    } else {
+        // Fetch products for a specific category
+        $stmt = $db->prepare("SELECT * FROM products WHERE stock > 0 AND category = :category ORDER BY product_id DESC");
+        $stmt->execute(['category' => $category_query]);
+    }
+    $products = $stmt->fetchAll();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -116,237 +132,59 @@
      </section>
 
      <section class="products-section" style="padding-top: 130px;">
-        <h3>Categories</h3>
-        <div class="tabs">
-            <div class="tab active" id="allTab">All</div>
-            <div class="tab " id="chocolateTab">Chocolates</div>
-            <div class="tab" id="peppersTab">Peppers</div>
-            <div class="tab" id="cigarTab">Cigars</div>
-        </div>
-        <div class="product-container content active" id="allContent">
-            <!--All products-->
-            <?php
-                $stmt =$db->prepare('SELECT * FROM products ORDER BY product_id DESC');
-                $stmt->execute();
-                $products=$stmt->fetchAll();
-                if(!$products){
+    <h3>Categories</h3>
+    <div class="tabs">
+        <div class="tab <?php echo ($category_query == 'All') ? 'active' : ''; ?>" id="allTab" onclick="window.location.href='products.php'">All</div>
+        <div class="tab <?php echo ($category_query == 'Chocolates') ? 'active' : ''; ?>" id="chocolateTab" onclick="window.location.href='?category=Chocolates'">Chocolates</div>
+        <div class="tab <?php echo ($category_query == 'Peppers') ? 'active' : ''; ?>" id="peppersTab" onclick="window.location.href='?category=Peppers'">Peppers</div>
+        <div class="tab <?php echo ($category_query == 'Cigars') ? 'active' : ''; ?>" id="cigarTab" onclick="window.location.href='?category=Cigars'">Cigars</div>
+    </div>
+
+    <!-- Products per category -->
+    <div class="product-container <?php echo ($category_query == 'All') ? 'active' : ''; ?>" id="allContent">
+        <?php foreach($products as $product): ?>
+            <div class="product">
+                <a href="product_detail.php?product=<?= $product['product'] ?>"><img src="products_images/<?= $product['photo'] ?>" alt=""></a>
+                <h4><?= $product['name'] ?></h4>
+                <?php
+                    $sql = 'SELECT AVG(rating) as avg_rating FROM reviews WHERE product_id = ?';
+                    $stmt = $db->prepare($sql);
+                    $stmt->execute([$product['product_id']]);
+                    $result = $stmt->fetch();
+                    $avg_rating = round($result['avg_rating'], 1);
                     ?>
-                        <p>No product yet added</p>
-                    <?php
-                }else{
-                    foreach($products as $product){
-                        ?>
-                            <div class="product">
-                                <a href="product_detail.php?product=<?=$product['product']?>"><img src="products_images/<?=$product['photo']?>" alt=""></a>
-                                <h4><?=$product['name']?></h4>
+                        <div class="stars">
+                            <div>
                                 <?php
-                                    $sql = 'SELECT AVG(rating) as avg_rating FROM reviews WHERE product_id = ?';
-                                    $stmt = $db->prepare($sql);
-                                    $stmt->execute([$product['product_id']]);
-                                    $result = $stmt->fetch();
-                                    $avg_rating = round($result['avg_rating'], 1);
-                                    ?>
-                                        <div class="stars">
-                                            <div>
-                                                <?php
-                                                    // Loop through 5 stars
-                                                    for ($i = 1; $i <= 5; $i++) {
-                                                        // Check if we should display a filled star, half star, or an empty star
-                                                        if ($i <= floor($avg_rating)) {
-                                                            // Full star
-                                                            echo "<i class='bi bi-star-fill'></i>";
-                                                        } elseif ($i == ceil($avg_rating) && $avg_rating != floor($avg_rating)) {
-                                                            // Half star (if it's a fractional rating)
-                                                            echo "<i class='bi bi-star-half'></i>";
-                                                        } else {
-                                                            // Empty star
-                                                            echo "<i class='bi bi-star'></i>";
-                                                        }
-                                                    }
-                                                ?>
-                                            </div>
-                                            <p>(<?php echo $avg_rating; ?>)</p>
-                                        </div>
-                                    <?php
+                                    // Loop through 5 stars
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        // Check if we should display a filled star, half star, or an empty star
+                                        if ($i <= floor($avg_rating)) {
+                                            // Full star
+                                            echo "<i class='bi bi-star-fill'></i>";
+                                        } elseif ($i == ceil($avg_rating) && $avg_rating != floor($avg_rating)) {
+                                            // Half star (if it's a fractional rating)
+                                            echo "<i class='bi bi-star-half'></i>";
+                                        } else {
+                                            // Empty star
+                                            echo "<i class='bi bi-star'></i>";
+                                        }
+                                    }
                                 ?>
-                                <div class="buy">
-                                    <p>$<?=$product['price']?></p>
-                                    <a href="product_detail.php?product=<?=$product['product']?>">Buy</a>
-                                </div>
                             </div>
-                        <?php
-                    }
-                }
-            ?>
-            
-        </div>
-        <div class="product-container content" id="chocolateContent">
-            <?php
-                $stmt =$db->prepare("SELECT * FROM products WHERE category='Chocolates'ORDER BY product_id DESC");
-                $stmt->execute();
-                $products=$stmt->fetchAll();
-                if(!$products){
-                    ?>
-                        <p>No product yet added</p>
+                            <p>(<?php echo $avg_rating; ?>)</p>
+                        </div>
                     <?php
-                }else{
-                    foreach($products as $product){
-                        ?>
-                            <div class="product">
-                                <a href="product_detail.php?product=<?=$product['product']?>"><img src="products_images/<?=$product['photo']?>" alt=""></a>
-                                <h4><?=$product['name']?></h4>
-                                <?php
-                                    $sql = 'SELECT AVG(rating) as avg_rating FROM reviews WHERE product_id = ?';
-                                    $stmt = $db->prepare($sql);
-                                    $stmt->execute([$product['product_id']]);
-                                    $result = $stmt->fetch();
-                                    $avg_rating = round($result['avg_rating'], 1);
-                                    ?>
-                                        <div class="stars">
-                                            <div>
-                                                <?php
-                                                    // Loop through 5 stars
-                                                    for ($i = 1; $i <= 5; $i++) {
-                                                        // Check if we should display a filled star, half star, or an empty star
-                                                        if ($i <= floor($avg_rating)) {
-                                                            // Full star
-                                                            echo "<i class='bi bi-star-fill'></i>";
-                                                        } elseif ($i == ceil($avg_rating) && $avg_rating != floor($avg_rating)) {
-                                                            // Half star (if it's a fractional rating)
-                                                            echo "<i class='bi bi-star-half'></i>";
-                                                        } else {
-                                                            // Empty star
-                                                            echo "<i class='bi bi-star'></i>";
-                                                        }
-                                                    }
-                                                ?>
-                                            </div>
-                                            <p>(<?php echo $avg_rating; ?>)</p>
-                                        </div>
-                                    <?php
-                                ?>
-                                <div class="buy">
-                                    <p>$<?=$product['price']?></p>
-                                    <a href="product_detail.php?product=<?=$product['product']?>">Buy</a>
-                                </div>
-                            </div>
-                        <?php
-                    }
-                }
-            ?>
-            
-        </div>
-        <div class="product-container content" id="peppersContent">
-            <?php
-                $stmt =$db->prepare("SELECT * FROM products WHERE category='Peppers'ORDER BY product_id DESC");
-                $stmt->execute();
-                $products=$stmt->fetchAll();
-                if(!$products){
-                    ?>
-                        <p>No product yet added</p>
-                    <?php
-                }else{
-                    foreach($products as $product){
-                        ?>
-                            <div class="product">
-                                <a href="product_detail.php?product=<?=$product['product']?>"><img src="products_images/<?=$product['photo']?>" alt=""></a>
-                                <h4><?=$product['name']?></h4>
-                                <?php
-                                    $sql = 'SELECT AVG(rating) as avg_rating FROM reviews WHERE product_id = ? ' ;
-                                    $stmt = $db->prepare($sql);
-                                    $stmt->execute([$product['product_id']]);
-                                    $result = $stmt->fetch();
-                                    $avg_rating = round($result['avg_rating'], 1);
-                                    ?>
-                                        <div class="stars">
-                                            <div>
-                                                <?php
-                                                    // Loop through 5 stars
-                                                    for ($i = 1; $i <= 5; $i++) {
-                                                        // Check if we should display a filled star, half star, or an empty star
-                                                        if ($i <= floor($avg_rating)) {
-                                                            // Full star
-                                                            echo "<i class='bi bi-star-fill'></i>";
-                                                        } elseif ($i == ceil($avg_rating) && $avg_rating != floor($avg_rating)) {
-                                                            // Half star (if it's a fractional rating)
-                                                            echo "<i class='bi bi-star-half'></i>";
-                                                        } else {
-                                                            // Empty star
-                                                            echo "<i class='bi bi-star'></i>";
-                                                        }
-                                                    }
-                                                ?>
-                                            </div>
-                                            <p>(<?php echo $avg_rating; ?>)</p>
-                                        </div>
-                                    <?php
-                                ?>
-                                <div class="buy">
-                                    <p>$<?=$product['price']?></p>
-                                    <a href="product_detail.php?product=<?=$product['product']?>">Buy</a>
-                                </div>
-                            </div>
-                        <?php
-                    }
-                }
-            ?>
-        </div>
-        <div class="product-container content" id="cigarContent">
-            <?php
-                $stmt =$db->prepare("SELECT * FROM products WHERE category='Cigars' ORDER BY product_id DESC");
-                $stmt->execute();
-                $products=$stmt->fetchAll();
-                if(!$products){
-                    ?>
-                        <p>No product yet added</p>
-                    <?php
-                }else{
-                    foreach($products as $product){
-                        ?>
-                            <div class="product">
-                                <a href="product_detail.php?product=<?=$product['product']?>"><img src="products_images/<?=$product['photo']?>" alt=""></a>
-                                <h4><?=$product['name']?></h4>
-                                <?php
-                                    $sql = 'SELECT AVG(rating) as avg_rating FROM reviews WHERE product_id = ?';
-                                    $stmt = $db->prepare($sql);
-                                    $stmt->execute([$product['product_id']]);
-                                    $result = $stmt->fetch();
-                                    $avg_rating = round($result['avg_rating'], 1);
-                                    ?>
-                                        <div class="stars">
-                                            <div>
-                                                <?php
-                                                    // Loop through 5 stars
-                                                    for ($i = 1; $i <= 5; $i++) {
-                                                        // Check if we should display a filled star, half star, or an empty star
-                                                        if ($i <= floor($avg_rating)) {
-                                                            // Full star
-                                                            echo "<i class='bi bi-star-fill'></i>";
-                                                        } elseif ($i == ceil($avg_rating) && $avg_rating != floor($avg_rating)) {
-                                                            // Half star (if it's a fractional rating)
-                                                            echo "<i class='bi bi-star-half'></i>";
-                                                        } else {
-                                                            // Empty star
-                                                            echo "<i class='bi bi-star'></i>";
-                                                        }
-                                                    }
-                                                ?>
-                                            </div>
-                                            <p>(<?php echo $avg_rating; ?>)</p>
-                                        </div>
-                                    <?php
-                                ?>
-                                <div class="buy">
-                                    <p>$<?=$product['price']?></p>
-                                    <a href="product_detail.php?product=<?=$product['product']?>">Buy</a>
-                                </div>
-                            </div>
-                        <?php
-                    }
-                }
-            ?>
-        </div>
-    </section>
+                ?>
+                <div class="buy">
+                    <p>$<?= $product['price'] ?></p>
+                    <a href="product_detail.php?product=<?= $product['product'] ?>">Buy</a>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>
+
     <script>
         const allTab = document.getElementById('allTab');
         const chocolateTab = document.getElementById('chocolateTab');
@@ -401,6 +239,25 @@
           chocolateContent.classList.remove('active');
           peppersContent.classList.remove('active');
         });
+      </script>
+ 
+ <script>
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('keyup', function() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const productItems = document.querySelectorAll('.product');
+
+            productItems.forEach(item => {
+                const productName = item.querySelector('h4').textContent.toLowerCase();
+                if (productName.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
       </script>
       <script src="../asset/javascript/app.js"></script>
     </body>

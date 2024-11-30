@@ -5,13 +5,12 @@
     require_once('../controllers/functions.php');
     notAdmin();
     logout();
-
-$user = null;
-if (isset($_SESSION['user_id'])) {
-    $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
-    $query->execute(['user_id' => $_SESSION['user_id']]);
-    $user = $query->fetch();
-}
+    $user = null;
+    if (isset($_SESSION['user_id'])) {
+        $query = $db->prepare("SELECT * FROM users WHERE user_id = :user_id");
+        $query->execute(['user_id' => $_SESSION['user_id']]);
+        $user = $query->fetch();
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,26 +38,34 @@ if (isset($_SESSION['user_id'])) {
       <aside>
         <nav>
           <div class="title" style="font-size: 0.8rem;">
-                <div class="profile">
-                    <p><img src="../pages/profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"></p>
-                </div>
-                <h3 style="margin-top: -10px;"><?=$user['firstname']?> <?=$user['lastname']?></h3>
+            <div class="profile">
+                <p><img src="../pages/profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"></p>
+            </div>
+            <h3 style="margin-top: -10px;"><?=$user['firstname']?> <?=$user['lastname']?></h3>
           </div>
           <div >
             <i class="bi bi-speedometer2"></i>
             <a href="adminDashboard.php">Dashboard</a>
           </div>
           <div >
-                <i class="bi bi-dropbox"></i>
-                <a href="products.php">Products</a>
+              <i class="bi bi-dropbox"></i>
+              <a href="products.php">Products</a>
           </div>
           <div>
-            <i class="bi bi-basket2-fill"></i>
+             <i class="bi bi-basket2-fill"></i>
              <a href="orders.php">Orders</a>
           </div>
+          <div >
+            <i class="bi bi-file-earmark-post"></i>
+            <a href="posts.php">Posts</a>
+          </div>
+          <div >
+            <i class="bi bi-images"></i>
+            <a href="slides.php">Slides</a>
+          </div>
           <div class="activ">
-                <i class="bi bi-envelope"></i>
-                <a href="news-letter.php">News letter</a>
+            <i class="bi bi-envelope"></i>
+            <a href="news-letter.php">News letter</a>
           </div>
           <div>
             <i class="bi bi-credit-card-2-front"></i>
@@ -80,7 +87,6 @@ if (isset($_SESSION['user_id'])) {
                   <input type="text" name="subject" placeholder="Subject of the message" >
                   <textarea name="message" id="" placeholder="Message" rows="4"></textarea>
                   <input class="button" type="submit" name="send" value="Send message">
-                  
               </div>
               <div class="errors-management">
                 <p class="error"><?=$error?></p>

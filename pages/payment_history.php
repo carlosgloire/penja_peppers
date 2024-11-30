@@ -6,7 +6,6 @@
   notconnected();
 
   $user_id = $_SESSION['user_id'];
-
   $sql = "
   SELECT 
       p.payment_date, 
