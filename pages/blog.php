@@ -133,15 +133,18 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="articles-section">
         <?php foreach ($blogs as $blog): ?> <!-- Loop through each blog post -->
             <?php
-                    $likeCheckStmt = $db->prepare("
-                    SELECT 1 
-                    FROM likes 
-                    WHERE user_ip = ? AND post_id = ?
+                $likeCheckStmt = $db->prepare("
+                    SELECT 
+                        (SELECT COUNT(*) FROM likes WHERE post_id = ?) AS like_count, 
+                        (SELECT 1 FROM likes WHERE post_id = ? AND user_ip = ?) AS is_liked
                 ");
-                $likeCheckStmt->execute([$_SERVER['REMOTE_ADDR'], $blog['post_id']]);
-                $blog['is_liked'] = $likeCheckStmt->fetchColumn() ? true : false;
-                
-                ?>
+                $likeCheckStmt->execute([$blog['post_id'], $blog['post_id'], $_SERVER['REMOTE_ADDR']]);
+                $likeData = $likeCheckStmt->fetch(PDO::FETCH_ASSOC);
+
+                $blog['like_count'] = $likeData['like_count'];
+                $blog['is_liked'] = $likeData['is_liked'] ? true : false;
+            ?>
+
             <div class="blog-post" data-post-id="<?php echo $blog['post_id']; ?>">
                 <h4 class="title"><?php echo htmlspecialchars($blog['title']); ?></h4> <!-- Display blog title -->
                 <img class="image-article" src="../pages/posts_images/<?= $blog['image']; ?>" alt=""> <!-- Display image -->
@@ -149,17 +152,17 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <!-- Like button with dynamic like count -->
                 <div>
-                    <button class="like-button" data-post-id="<?php echo $blog['post_id']; ?>">
-                        <i class="<?php echo $isLiked ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up'; ?>"></i>
-                    </button>
-
-                    <span class="like-count"><?php echo $blog['like_count']; ?></span>
+                <button class="like-button">
+                    <i class="<?php echo $blog['is_liked'] ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up'; ?>"></i>
+                </button>
+                <span class="like-count"><?php echo $blog['like_count']; ?></span>
                     <button class="share-button" 
-                            data-link="https://penjaspeppers.com/pages/blog.php?post=<?php echo $blog['post']; ?>" 
-                            data-image="../pages/posts_images/<?php echo $blog['image']; ?>">
-                            <i class="bi bi-share"></i> Share
+                        data-link="https://penjaspeppers.com/pages/blog.php?post=<?php echo $blog['post_id']; ?>" 
+                        data-image="../pages/posts_images/<?php echo $blog['image']; ?>">
+                        <i class="bi bi-share"></i> Share
                     </button>
                 </div>
+
 
                 <!-- Comment section -->
                 <div class="comment-section">
@@ -168,7 +171,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php
                         // Fetch comments for this post
                         $commentStmt = $db->prepare("
-                            SELECT comments.comment, comments.id, users.user_id, users.firstname , users.lastname,users.photo
+                            SELECT comments.comment, comments.id, users.user_id, users.firstname , users.lastname, users.photo
                             FROM comments
                             JOIN users ON comments.user_id = users.user_id
                             WHERE comments.post_id = ?
@@ -180,9 +183,10 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                         <?php foreach ($comments as $index => $comment): ?> <!-- Loop through comments -->
                             <div class="comment <?php echo $index > 1 ? 'hidden' : ''; ?>" data-comment-id="<?php echo $comment['id']; ?>"> <!-- Show first two comments -->
-                               
-                                    <span style="display: flex;"><img  src="../pages/profile_photo/<?=$comment['photo']?>" style="border-radius:50%;height:20px;width:20px; margin-top:5px;margin-right:5px" alt=""><?php echo htmlspecialchars($comment['firstname']).' '.htmlspecialchars($comment['lastname']); ?>:</span>
-                               
+                                <span style="display: flex;">
+                                    <img src="../pages/profile_photo/<?=$comment['photo']?>" style="border-radius:50%;height:20px;width:20px; margin-top:5px;margin-right:5px" alt="">
+                                    <?php echo htmlspecialchars($comment['firstname']).' '.htmlspecialchars($comment['lastname']); ?>:
+                                </span>
                                 <span style="margin-left: 25px;font-weight:200" class="comment-text"><?php echo htmlspecialchars($comment['comment']); ?></span>
 
                                 <?php if (isset($_SESSION['user']) && $_SESSION['user_id'] == $comment['user_id']): ?> <!-- Check if the logged-in user owns the comment -->
@@ -226,44 +230,37 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
  </div>
  <script>
-    // Wait for the DOM to load before binding events
-    document.addEventListener("DOMContentLoaded", function() {
-        // Add event listener to all like buttons
-        document.querySelectorAll('.like-button').forEach(function(button) {
-            button.addEventListener('click', function() {
-                // Get the post ID from the button's data attribute
-                var postId = this.getAttribute('data-post-id');
-                var icon = this.querySelector('i');
-                var likeCountElement = this.closest('.blog-post').querySelector('.like-count');
+document.querySelectorAll('.like-button').forEach(button => {
+    button.addEventListener('click', function () {
+        const blogPost = this.closest('.blog-post');
+        const postId = blogPost.getAttribute('data-post-id');
 
-                // Send AJAX request to like/unlike the post
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'like.php', true);
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.onload = function() {
-                    if (xhr.status === 200) {
-                        // Parse the response
-                        var response = JSON.parse(xhr.responseText);
-                        
-                        if (response.success) {
-                            // Update the like icon
-                            if (response.is_liked) {
-                                icon.classList.remove('bi-hand-thumbs-up');
-                                icon.classList.add('bi-hand-thumbs-up-fill');
-                            } else {
-                                icon.classList.remove('bi-hand-thumbs-up-fill');
-                                icon.classList.add('bi-hand-thumbs-up');
-                            }
-                            
-                            // Update the like count
-                            likeCountElement.textContent = response.like_count;
-                        }
-                    }
-                };
-                xhr.send(JSON.stringify({ post_id: postId }));
+        fetch('like.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ post_id: postId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Update like count
+                    const likeCountElem = blogPost.querySelector('.like-count');
+                    likeCountElem.textContent = data.like_count;
+
+                    // Update like button icon
+                    const icon = this.querySelector('i');
+                    icon.className = data.is_liked ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up';
+                } else {
+                    alert(data.message || 'An error occurred.');
+                }
+            })
+            .catch(err => {
+                console.error('Error:', err);
+                alert('An error occurred. Please try again.');
             });
-        });
     });
+});
+
 
 </script>
 
