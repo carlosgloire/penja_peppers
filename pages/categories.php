@@ -39,8 +39,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories</title>
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
-    <link rel="stylesheet" href="../asset/css/styles.css">
     <link rel="stylesheet" href="../asset/css/categories.css">
+    <link rel="stylesheet" href="../asset/css/styles.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -77,7 +78,7 @@
             </nav>
             <div class="header-icons">
                 <div class="search-container" style="background-color: initial;">
-                    <input type="text" class="search-input" placeholder="Search...">
+                    <input type="text" id="search-input" class="search-input search" placeholder="Search...">
                     <i class="fas fa-search search-icon"></i>
                 </div>
                 <div class="cart-list">
@@ -139,7 +140,7 @@
         <div class="tab <?php echo ($category_query == 'Peppers') ? 'active' : ''; ?>" id="peppersTab" onclick="window.location.href='?category=Peppers'">Peppers</div>
         <div class="tab <?php echo ($category_query == 'Cigars') ? 'active' : ''; ?>" id="cigarTab" onclick="window.location.href='?category=Cigars'">Cigars</div>
     </div>
-
+    <input  id="search-input"  class="search-product search"  type="text" placeholder="Search products here..." >
     <!-- Products per category -->
     <div class="product-container <?php echo ($category_query == 'All') ? 'active' : ''; ?>" id="allContent">
         <?php foreach($products as $product): ?>
@@ -241,24 +242,38 @@
         });
       </script>
  
- <script>
-        const searchInput = document.querySelector('.search-input');
-        searchInput.addEventListener('keyup', function() {
-            const searchTerm = searchInput.value.toLowerCase();
-            const productItems = document.querySelectorAll('.product');
-
-            productItems.forEach(item => {
-                const productName = item.querySelector('h4').textContent.toLowerCase();
-                if (productName.includes(searchTerm)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+        <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('search-input');
+    const searchProduct = document.querySelector('.search-product');
+    const productContainer = document.querySelector('.product-container');
+    
+    // Function to filter products based on search input
+    function filterProducts(query) {
+        const products = document.querySelectorAll('.product');
+        products.forEach(product => {
+            const name = product.querySelector('h4').textContent.toLowerCase();
+            if (name.includes(query.toLowerCase())) {
+                product.style.display = 'block';
+            } else {
+                product.style.display = 'none';
+            }
         });
-    </script>
+    }
 
-      </script>
+    // Listen for changes on both search inputs
+    searchInput.addEventListener('input', function() {
+        filterProducts(searchInput.value);
+    });
+
+    searchProduct.addEventListener('input', function() {
+        filterProducts(searchProduct.value);
+    });
+});
+
+        </script>
+
+
       <script src="../asset/javascript/app.js"></script>
     </body>
     </html>

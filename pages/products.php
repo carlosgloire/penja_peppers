@@ -59,7 +59,7 @@
         </nav>
         <div class="header-icons">
             <div class="search-container">
-                <input type="text" class="search-input" id="search-input" placeholder="Search..." onkeyup="liveSearch()">
+                <input type="text" id="header-search-input" class="search-input" placeholder="Search products here...">
                 <i class="fas fa-search search-icon"></i>
             </div>
             <div class="cart-list">
@@ -114,6 +114,7 @@
     </section>
      <div class="products-section" style="padding-top: 130px;">
     <h3>Products</h3>
+    <input id="product-search-input" type="text" class="search-product" placeholder="Search a product here ...">
     <div class="product-container" id="product-container">
         <!-- Products will be displayed here based on search -->
         <?php
@@ -170,20 +171,28 @@
     </div>
 </div>
 <script>
-    function liveSearch() {
-        var searchQuery = document.getElementById('search-input').value;
+function liveSearchSecond(event) {
+    // Get the search query from the input that triggered the event
+    var searchQuery = event.target.value;
 
-        // Perform AJAX request to search products
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'search_products.php?query=' + searchQuery, true);
-        xhr.onload = function() {
-            if (xhr.status === 200) {
-                // Update the product container with the search results
-                document.getElementById('product-container').innerHTML = xhr.responseText;
-            }
-        };
-        xhr.send();
-    }
+    // Perform AJAX request to search products
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'search_products.php?query=' + encodeURIComponent(searchQuery), true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            // Update the product container with the search results
+            document.getElementById('product-container').innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send();
+}
+
+// Attach the event listener to multiple inputs
+document.querySelectorAll('#header-search-input, #product-search-input').forEach(input => {
+    input.addEventListener('keyup', liveSearchSecond);
+});
+
+
     function removeFromCart(productId) {
         const form = document.createElement('form');
         form.method = 'post';

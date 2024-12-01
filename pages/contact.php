@@ -22,8 +22,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
-    <link rel="icon" href="asset/images/logo.png" type="image/png" sizes="16x16">
-    <link rel="stylesheet" href="../asset//css/styles.css">
+    <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="../asset/css/styles.css">
     <link rel="stylesheet" href="../asset/css/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
@@ -111,7 +111,7 @@
      </section>
 
     <!-- Contacts -->
-    <section style="margin-bottom: 40px;" class="contact" id="contacts">
+    <section  class="contact" id="contacts">
         <div class="title">
             <h3>Contactez-nous</h3>
         </div>
@@ -126,9 +126,9 @@
                 </div>
                 <div class="info">
                     <i class="bi bi-envelope"></i>
-                    <div>
+                    <div class="email">
                         <span>Email</span>
-                        <a href="mailto:contact@generalconsultinggroups.com">contact@generalconsultinggroups.com</a>
+                        <a class="email" href="mailto:contact@generalconsultinggroups.com">contact@generalconsultinggroups.com</a>
                     </div>
                 </div>
                 <div class="info">

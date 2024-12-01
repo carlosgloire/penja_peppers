@@ -268,8 +268,12 @@ textarea{
         width: 100%;
         padding: 20px;
     }
+
     .blog-post {
         width: 100%;
+    }
+    .blog-post .image-article{
+
     }
 }
 
@@ -284,17 +288,26 @@ textarea{
     }
 }
 
+@media screen and (max-width: 440px) {
 
-@media screen and (max-width: 435px){
-    .blog-post img{
-        width: 300px;
-        height: 350px;
+    .blog-post {
+        width: 100%;
+    }
+    .blog-post .image-article{
+        width: 280px;
+
     }
 }
 
-@media screen and (max-width: 387px){
-    .blog-post img{
-        width: 250px;
-        height: 300px;
+@media screen and (max-width: 370px) {
+    .articles-section{
+        padding:10px;
+    }
+    .blog-post {
+        width: 100%;
+    }
+    .blog-post .image-article{
+        width: 240px;
+
     }
 }

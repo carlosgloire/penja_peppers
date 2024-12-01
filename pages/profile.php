@@ -1,9 +1,9 @@
 <?php
   session_start();
   require_once('../controllers/database/db.php');
-  require_once('../controllers/delete_account.php');
   require_once('../controllers/functions.php');
   require_once('../controllers/update_userprofile.php');
+  require_once('../controllers/delete_account.php');
   notconnected();
   logout();
   if (isset($_GET['user_id']) && !empty($_GET['user_id'])) {
@@ -34,6 +34,9 @@
       echo '<script>window.location.href="templates/";</script>';
       exit;
   }
+
+  $show_popup = isset($_POST['delete']) || !empty($error_password);
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +46,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
-    <link rel="stylesheet" href="../asset/css/userDashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -54,6 +56,8 @@
     <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.0/css/boxicons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.0/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../asset/css/userDashboard.css">
+    <link rel="stylesheet" href="../asset/css/popup_delete_account.css">
 </head>
 
 <body>
@@ -110,6 +114,7 @@
             </div>
         </div>
       </div>
+      <?=popup_delete_count($error_password,$show_popup)?>
     </section>
     <script src="../asset/javascript/popup_delete_account.js"></script>
 </body>

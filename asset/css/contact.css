@@ -6,16 +6,15 @@
 .contact {
     padding: 20px 100px 50px 100px;
     padding-top: 130px;
-    height: 80vh;
 }
 
 .contact .contact-info .info {
     display: flex;
     gap: 10px;
-    -webkit-column-gap: 10px;
     margin-top: 10px;
     align-items: center;
     -webkit-column-gap: 10px;
+    width: 100%;
 }
 
 .contact .contact-info .info div {
@@ -118,4 +117,11 @@ textarea {
         padding-left: 15px;
         padding-right: 15px;
     }
+}
+
+@media screen and (max-width: 450px){
+    .contact .contact-info .info .email {
+        word-break: break-word;
+    }
+
 }

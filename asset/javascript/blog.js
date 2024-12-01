@@ -1,31 +1,6 @@
 /*-----------------------------------/
 #Css for handling like bouton
 /-----------------------------------*/
-    
-    document.addEventListener('DOMContentLoaded', function() {
-        const likeButtons = document.querySelectorAll('.like-button');
-
-        likeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const postId = this.closest('.blog-post').dataset.postId;
-                const likeIcon = this.querySelector('i');
-                const likeCountElement = this.nextElementSibling; // Assuming the like count is the next element after the button
-
-                // Toggle the icon and like count directly
-                if (likeIcon.classList.contains('bi-hand-thumbs-up')) {
-                    // Simulate "like"
-                    likeIcon.classList.remove('bi-hand-thumbs-up');
-                    likeIcon.classList.add('bi-hand-thumbs-up-fill');
-                    likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1; // Increase like count
-                } else {
-                    // Simulate "unlike"
-                    likeIcon.classList.remove('bi-hand-thumbs-up-fill');
-                    likeIcon.classList.add('bi-hand-thumbs-up');
-                    likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1; // Decrease like count
-                }
-            });
-        });
-    });
 
 /*-----------------------------------/
 #Function to handle view more comments

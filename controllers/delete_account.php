@@ -1,7 +1,7 @@
 <?php
     require_once('../controllers/database/db.php');
     // Initialize variables
-    $error = null;
+    $error_password = null;
     // Handle form submission
     if (isset($_POST['delete'])) {
         // Request to get the password from the database
@@ -10,9 +10,9 @@
         $get_password = $requete->fetch();
         $password2 = htmlspecialchars($_POST['password2']);   
         if (empty($password2)) {
-            $error = "Please enter the password to delete your account.";
+            $error_password = "Please enter the password to delete your account.";
         } elseif (!password_verify($password2, $get_password['password'])) {
-            $error = "The password you entered is incorrect.";
+            $error_password = "The password you entered is incorrect.";
         } else {
             // Verify user ID and delete the account
             $recup_id = $db->prepare("SELECT user_id FROM users WHERE user_id = :user_id");
@@ -24,13 +24,15 @@
                 $delete_account->execute(['user_id' => $user_id['user_id']]);
                 
                 // Destroy the session after deleting the account
-                session_destroy();
+                unset($_SESSION['user']);
+                unset($_SESSION['panier']);
+                unset( $_SESSION['role']);
                 
                 echo '<script>alert("Account successfully deleted.");</script>';
-                echo '<script>window.location.href="../pages/";</script>'; // Redirect to logout page after account deletion
+                echo '<script>window.location.href="../";</script>'; // Redirect to logout page after account deletion
                 exit;
             } else {
-                $error = "No account found.";
+                $error_password = "No account found.";
             }
         }
     }

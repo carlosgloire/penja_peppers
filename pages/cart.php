@@ -178,7 +178,7 @@
         <form action="cart.php" method="POST">
             <?php foreach ($cart_items as $item): ?>
                 <div class="our-cart-prod">
-                    <div class="order-prod">
+                    <div class="order-prod" style="flex-wrap:wrap;gap:15px">
                         <div>
                             <p><img src="products_images/<?= htmlspecialchars($item['photo']); ?>" alt=""></p>
                         </div>
@@ -191,7 +191,7 @@
                             <span>$<?= htmlspecialchars($item['price']); ?></span>
                         </div>
                         <div>
-                            <h4>Quantity selected</h4>
+                            <h4>Quantity </h4>
                             <input type="number" name="quantities[<?= $item['product_id']; ?>]" value="<?= htmlspecialchars($item['quantity']); ?>" min="1">
                         </div>
                         <div class="delete">
@@ -200,7 +200,7 @@
                             </button>
                         </div>
                     </div>
-                    <div class="price">
+                    <div class="price" style="margin-top: -10px;">
                         <h4>Total price</h4>
                         <span>$<?= htmlspecialchars($item['total_price']); ?></span>
                     </div>

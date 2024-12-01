@@ -1,18 +1,13 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    const openPopup = document.getElementById('open');
+document.addEventListener('DOMContentLoaded', () => {
+    const deleteButton = document.getElementById('open');
     const popup = document.querySelector('.popup');
-    const cancelPopup = document.querySelector('.cancel-popup');
+    const cancelButton = document.querySelector('.cancel-popup');
 
-    openPopup.addEventListener('click', () => {
-        popup.classList.remove('hidden-popup');
+    deleteButton.addEventListener('click', () => {
+        popup.classList.remove('hidden-popup-delete');
     });
 
-    cancelPopup.addEventListener('click', () => {
-        popup.classList.add('hidden-popup');
+    cancelButton.addEventListener('click', () => {
+        popup.classList.add('hidden-popup-delete');
     });
-
-    // Check for errors on page load and keep popup open if there are any
-    if (document.querySelector('.error')) {
-        popup.classList.remove('hidden-popup');
-    }
 });

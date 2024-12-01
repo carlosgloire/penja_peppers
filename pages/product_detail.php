@@ -59,11 +59,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../asset/css/review_details.css">
     <link rel="stylesheet" href="../asset/css/product_detail.css">
-    <link rel="stylesheet" href="../asset/css/styles.css">
 </head>
 <body>
       <!-- Top Bar -->
-    <section class="header">
+      <section class="header">
         <div class="top-bar">
             <div class="moving-text">
                 <div class="text">Free Shipping on All Orders Over $500 </div>
@@ -78,16 +77,14 @@
                     <li><a href="../">Home</a></li>
                     <li><a href="about.php">About us</a></li>
                     <li><a href="blog.php">Blog</a></li>
+                    <li><a href="products.php">Products</a></li>
                     <li><a href="categories.php">Categories</a></li>
                     <li><a href="contact.php">Contact us</a></li>
                 </ul>
                 
             </nav>
             <div class="header-icons">
-                <div class="search-container">
-                    <input type="text" class="search-input" id="search-input" placeholder="Search..." onkeyup="liveSearch()">
-                    <i class="fas fa-search search-icon"></i>
-                </div>
+
                 <div class="cart-list">
                     <a class="cart" href="cart.php"><i class="fas fa-shopping-cart"></i></a>
                     <span><?=$total_quantity > 0 ? $total_quantity:"0"?></span>
@@ -131,14 +128,14 @@
                             <?php
                     }
                 ?>
-                <div class="our-menu" >
+                <div class="our-menu">
                     <i class="bi bi-list menu-icon"></i>
                     <i class="bi bi-x exit-icon"></i>
                 </div>
             </div>
         </header>
     </section>
-    <div class="product-container">
+    <div class="details-container">
         <div class="product-photo">
           <img src="productS_images/<?=$product_image?>" alt="Product Photo" />
         </div>
@@ -151,7 +148,7 @@
           <p>Price: <span style="font-weight: 600;">$<?=$price?></span></p>
            <a style="color:#3498db; text-decoration:none" href="../reviews/review.php?product=<?=$product_slug?>">Review this product <span style="color:#ffdc60;"><i class="bi bi-star-fill"></i></span></a> 
           <div class="product-actions">
-            <form action="../controllers/add_to_cart.php" method="post">
+            <form  action="../controllers/add_to_cart.php" method="post">
                 <input type="hidden" name="product_id" value="<?=$product_id?>">
                 <label for="quantity">Quantity:</label>
                 <input type="number" id="quantity" name="quantity" value="1" min="1" max="<?=$stock?>" />

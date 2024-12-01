@@ -52,6 +52,7 @@
                     <li><a href="../">Home</a></li>
                     <li><a href="about.php">About us</a></li>
                     <li><a href="blog.php">Blog</a></li>
+                    <li><a href="products.php">Products</a></li>
                     <li><a href="categories.php">Categories</a></li>
                     <li><a href="contact.php">Contact us</a></li>
                 </ul>
@@ -118,8 +119,8 @@
 <section class="about-us" >
     <div class="container">
         <h3>Penja Peppers Refund and Cancellation Policy</h3>
-        <div class="paragraphs">
-            <div class="column">
+        <div class="paragraphs" >
+            <div class="column" style="width: 100%;">
                 <p>
                     At Penja Peppers, we are committed to providing our customers with high-quality products and exceptional service. We understand that there may be instances where you may need to cancel an order or request a refund. This policy outlines the terms and conditions governing refunds and cancellations to ensure transparency and fairness for both parties. <br><br>
                     <span>1. Order Cancellations</span><br>
@@ -197,7 +198,7 @@
                     <span>8. Contact Information</span><br>
                     If you have any questions or concerns about this Refund and Cancellation Policy, please contact our customer service team:
                     <br>
-                    <span class="icon"><i class="bi bi-check-all"></i></span> Email: <a href="mailto:contact@generalconsultinggroups.com" style="color: #3c8cc9;">contact@generalconsultinggroups.com</a> <br>
+                    <span class="icon"><i class="bi bi-check-all"></i></span> Email: <a href="mailto:contact@generalconsultinggroups.com" style="color: #3c8cc9;word-break: break-word;">contact@generalconsultinggroups.com</a> <br>
                     <span class="icon"><i class="bi bi-check-all"></i></span> Phone: +250 798 706 600 / +250 729 528 664 <br>
                     <span class="icon"><i class="bi bi-check-all"></i></span> Our Location: KN 4 Av 22, CAR FREE ZONE DOWNTOWN <br>
                     We aim to resolve all queries in a timely and efficient manner, ensuring customer satisfaction.

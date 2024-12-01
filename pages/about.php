@@ -50,8 +50,8 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="../">Home</a></li>
-                    <li><a href="about.php">About us</a></li>
                     <li><a href="blog.php">Blog</a></li>
+                    <li><a href="products.php">Products</a></li>
                     <li><a href="categories.php">Categories</a></li>
                     <li><a href="contact.php">Contact us</a></li>
                 </ul>

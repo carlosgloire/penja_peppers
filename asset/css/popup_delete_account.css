@@ -1,0 +1,55 @@
+/*-----------------------------------/
+#Popup
+/-----------------------------------*/
+
+.popup{
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 3s ease;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.678);
+}
+
+.popup-container{
+    width: fit-content;
+    padding: 40px 50px;
+    background-color: white;
+}
+.popup-container form div {
+    display: grid;
+    gap: 10px;
+    -webkit-column-gap: 10px;
+}
+
+.popup-container form div input {
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    width: 100%;
+    background-color: #e2e2e2a7;
+    font-family: "Poppins", sans-serif;
+}
+.hidden-popup-delete{
+    display: none;
+}
+.icons-link {
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    color: #fff;
+    background-color: #141b1fda;
+    font-family: "Poppins", sans-serif;
+    width: 48%;
+    border-radius: 4px;
+    text-align: center;
+}
+
+button {
+    text-align: center;
+}

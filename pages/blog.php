@@ -37,8 +37,9 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog</title>
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
-    <link rel="stylesheet" href="../asset/css/styles.css">
     <link rel="stylesheet" href="../asset/css/blog.css">
+    <link rel="stylesheet" href="../asset/css/styles.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -148,8 +149,8 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <!-- Like button with dynamic like count -->
                 <div>
-                    <button class="like-button">
-                        <i class="<?php echo $blog['is_liked'] ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up'; ?>"></i>
+                    <button class="like-button" data-post-id="<?php echo $blog['post_id']; ?>">
+                        <i class="<?php echo $isLiked ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up'; ?>"></i>
                     </button>
 
                     <span class="like-count"><?php echo $blog['like_count']; ?></span>
@@ -224,6 +225,48 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <button id="close-popup" style="margin-top: 10px; background: initial; color: #3c8cc9; cursor: pointer; "><i class="bi bi-x-circle"></i></button>
     </div>
  </div>
+ <script>
+    // Wait for the DOM to load before binding events
+    document.addEventListener("DOMContentLoaded", function() {
+        // Add event listener to all like buttons
+        document.querySelectorAll('.like-button').forEach(function(button) {
+            button.addEventListener('click', function() {
+                // Get the post ID from the button's data attribute
+                var postId = this.getAttribute('data-post-id');
+                var icon = this.querySelector('i');
+                var likeCountElement = this.closest('.blog-post').querySelector('.like-count');
+
+                // Send AJAX request to like/unlike the post
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'like.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        // Parse the response
+                        var response = JSON.parse(xhr.responseText);
+                        
+                        if (response.success) {
+                            // Update the like icon
+                            if (response.is_liked) {
+                                icon.classList.remove('bi-hand-thumbs-up');
+                                icon.classList.add('bi-hand-thumbs-up-fill');
+                            } else {
+                                icon.classList.remove('bi-hand-thumbs-up-fill');
+                                icon.classList.add('bi-hand-thumbs-up');
+                            }
+                            
+                            // Update the like count
+                            likeCountElement.textContent = response.like_count;
+                        }
+                    }
+                };
+                xhr.send(JSON.stringify({ post_id: postId }));
+            });
+        });
+    });
+
+</script>
+
 <script src="../asset/javascript/app.js"></script>
 <script src="../asset/javascript/blog.js"></script>
 </body>

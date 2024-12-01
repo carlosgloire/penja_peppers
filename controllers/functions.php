@@ -53,23 +53,23 @@
     ?>
     <?php
 
-    function popup_delete_count($error) {
+    function popup_delete_count($error_password, $show_popup) {
         ?>
-            <div class="popup <?= isset($error) ? '' : 'hidden-popup' ?>">
+            <div class="popup <?= $show_popup ? '' : 'hidden-popup-delete' ?>">
                 <div class="popup-container">
                     <form action="" method="post">
                         <h3>Dear User,</h3>
-                        <p>To delete your account please enter your password</p>
+                        <p>To delete your account, please enter your password.</p>
                         <div class="pass">
                             <input style="width:100%" class="password" name="password2" type="password" placeholder="Enter password" value="<?= isset($_POST['password2']) ? htmlspecialchars($_POST['password2']) : '' ?>">
                         </div>
-                        <div style="margin-top: 20px; justify-content:space-between;display:flex" class="popup-btn">
-                            <button type="button" style="cursor:pointer;" class="cancel-popup icons-link" >Cancel</button>
+                        <div style="margin-top: 20px; justify-content:space-between;display:flex;" class="popup-btn">
+                            <button type="button" style="cursor:pointer" class="cancel-popup icons-link">Cancel</button>
                             <button name="delete" style="cursor:pointer;" class="delete-popup icons-link">Delete</button>
                         </div>
                         <?php
-                        if (isset($error) && !empty($error)) {
-                            ?><p style="color:red;text-align:center;margin-top:10px"><?=$error?></p><?php
+                        if (!empty($error_password)) {
+                            ?><p style="color:red;text-align:center;margin-top:10px"><?=$error_password?></p><?php
                         }
                         ?>
                     </form>
@@ -77,6 +77,7 @@
             </div>
         <?php
     }
+
 
     ?>
     <?php

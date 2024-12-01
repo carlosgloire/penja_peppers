@@ -250,12 +250,14 @@ form i{
     border-radius: 10px;
     box-shadow: 0px 2px 4px #00000017;
 }
+
 .profile-card img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 15px;
+    border: 1px solid rgb(233, 233, 233);
 }
 .profile-card button {
     margin-top: 15px;
