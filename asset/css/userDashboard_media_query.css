@@ -1,0 +1,123 @@
+@media screen and (max-width: 860px) {
+    section aside {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        z-index: 150;
+        width: 250px;
+        transition: left 0.3s ease;
+        margin-left: 20px;
+        height: 84vh;
+        border-top-left-radius: 0px;
+    }
+  
+    .admin-menu {
+        margin-right: 0px;
+    }
+    aside.active {
+        left: 0;
+    }
+    
+    .admin-menu {
+        display: flex;
+    }
+    .exit-icon-admin {
+        display: none;
+    }
+    .admin-menu.active .menu-icon-admin {
+        display: none;
+    }
+    .admin-menu.active .exit-icon-admin {
+        display: flex;
+        cursor: pointer;
+    }
+    .right-side{
+        border-radius: 14px;
+        margin-left: 5px;
+        width: 100%;
+    }
+    section .right-side .name{
+        text-align: center;
+
+    }
+    .orders{
+        height: 400px;
+    }
+}
+@media screen and (max-width: 680px){
+    section aside {
+        height: 82.5vh;
+        margin-left: 10px;
+    }
+    section{
+        margin: 10px;
+    }
+}
+@media screen and (max-width: 635px){
+    .delete{
+        display: flex;
+    }
+}
+@media screen and (max-width: 659px){
+    section aside {
+        height: 87vh;
+        margin-left: 10px;
+    }
+    section{
+        margin: 10px;
+    }
+}
+@media screen and (max-width: 540px){
+    
+    .orders{
+        height: 360px;
+    }
+    section aside {
+        height: 80.5vh;
+        margin-left: 10px;
+    }
+}
+@media screen and (max-width: 523px){
+    .orders{
+        height: 360px;
+    }
+    section aside {
+        height: 85vh;
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 476px){
+
+    .orders{
+        height: 320px;
+    }
+    section aside {
+        height: 84vh;
+        margin-left: 10px;
+    }
+    section aside{
+        top: 90px;
+    }
+}
+@media screen and (max-width: 430px){
+
+    .orders{
+        height: 320px;
+    }
+    section aside {
+        height: 87vh;
+        margin-left: 10px;
+    }
+    section aside{
+        top: 90px;
+    }
+}
+
+@media screen and (max-width: 449px){
+
+    
+    section aside{
+        top: 100px;
+    }
+}

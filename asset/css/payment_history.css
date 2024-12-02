@@ -14,7 +14,10 @@ h3 {
     text-align: center;
     
 }
-
+.table-container {
+    height: 420px;
+    overflow: auto;
+}
 table {
     width: 100%;
     border-collapse: collapse;

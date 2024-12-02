@@ -58,6 +58,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../asset/css/userDashboard.css">
     <link rel="stylesheet" href="../asset/css/popup_delete_account.css">
+    <link rel="stylesheet" href="../asset/css/profile_media_query.css">
 </head>
 
 <body>
@@ -86,11 +87,14 @@
       </aside>
       <div class="right-side">
         <div class="profile-section">
-
             <div class="profile-card">
+              <div class="admin-menu">
+                  <i class="bi bi-list menu-icon-admin"></i>
+                  <i class="bi bi-x exit-icon-admin"></i>
+              </div>
                 <img src="profile_photo/<?=$photo?>" alt="User Profile Photo">
                 <h3><?=$fname?> <?=$lname?></h3>
-                <p>Email: <?=$email?></p>
+                <p style="word-break: break-word;">Email: <?=$email?></p>
                 <p>Phone: <?=$phone?></p>
                 <p>Address: <?=$location_fetched?></p>
                 <button title="Delete my account" class="delete" id="open" name="delete" ><i class="bi bi-trash3"></i></button>
@@ -117,5 +121,6 @@
       <?=popup_delete_count($error_password,$show_popup)?>
     </section>
     <script src="../asset/javascript/popup_delete_account.js"></script>
+    <script src="../asset/javascript/app.js"></script>
 </body>
 </html>

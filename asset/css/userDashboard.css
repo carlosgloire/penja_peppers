@@ -51,7 +51,15 @@ aside{
     box-shadow: 0px 2px 4px #00000017;
     margin-right: 5px;
 
+}.admin-menu {
+    display: none;
+    margin-right: 50px;
 }
+
+.admin-menu i {
+    font-size: 1.5rem;
+}
+
 .right-side{
     flex: 1;/*grow and take up available space in the container*/
     background-color: #f5f5f5;
@@ -136,6 +144,8 @@ form i{
 .right-side .profile{
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 20px;
 }
 .right-side .profile p img{
     border-radius: 50%;
@@ -146,6 +156,7 @@ form i{
     width: 33px;
     height: 33px;
 }
+
 /*-----------------------------------/
 #Dashboard
 /-----------------------------------*/
@@ -161,6 +172,9 @@ form i{
     box-shadow: 0px 1px 10px #e2e2e2a7;
     background-color: #fff;
     border-radius: 10px;
+    flex-wrap:wrap;
+    gap:20px;
+
 }
 
 .order-prod div {
@@ -372,3 +386,4 @@ a{
     padding: 10px;
     border-radius: 10px;
 }
+

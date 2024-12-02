@@ -30,6 +30,8 @@
     <title>Dashboard</title>
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="../asset/css/userDashboard.css">
+    <link rel="stylesheet" href="../asset/css/userDashboard_media_query.css">
+    <link rel="stylesheet" href="../asset/css/userPayment_media_query.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -67,10 +69,14 @@
       </aside>
       <div class="right-side" >
         <div class="profile">
+          <div class="admin-menu">
+              <i class="bi bi-list menu-icon-admin"></i>
+              <i class="bi bi-x exit-icon-admin"></i>
+          </div>
           <h3 style="margin-top: 10px;">Welcome to Penja Peppers</h3>
           <p><img src="profile_photo/<?=$user['photo']?>" alt="" width="30px" height="30px"></p>
         </div>
-        <h4><?=$user['firstname']?> <?=$user['lastname']?> !</h4>
+        <h4 class="name"><?=$user['firstname']?> <?=$user['lastname']?> !</h4>
         <p style="font-size: 17px;">Explore your orders at Penja Peppers! You can explore all your orders, delete the ones you don’t need, edit their details, and pay for any unpaid ones. It’s easy to manage everything in one place! use the scroll bar to view more orders.</p>
         <div class="orders">
           <?php foreach ($orders as $order): ?>
@@ -110,7 +116,7 @@
                             <span><?=$item['total_price']?></span>
                         </div>
                         <div>
-                            <h4>Quantity selected</h4>
+                            <h4>Quantity </h4>
                             <p><?=$item['quantity']?></p>
                         </div>
                         <div class="delete">
@@ -144,6 +150,7 @@
         </div>
     </div>
   </section>
+  <script src="../asset/javascript/app.js"></script>
   <script src="../asset/javascript/popup_delete_oderItem.js"></script>
 </body>
 </html>

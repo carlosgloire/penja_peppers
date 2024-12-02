@@ -45,6 +45,7 @@
     <link rel="icon" href="../asset/images/logo.png" type="image/png" sizes="16x16">
     <link rel="stylesheet" href="../asset/css/payment_history.css">
     <link rel="stylesheet" href="../asset/css/userDashboard.css">
+    <link rel="stylesheet" href="../asset/css/userPayment_media_query.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
@@ -83,7 +84,12 @@
       <div class="right-side">
         <div class="profile-section">
             <div class=" container" >
-                <h3 style="margin-bottom: 20px;">Payment history</h3>
+              <div class="admin-menu">
+                  <i class="bi bi-list menu-icon-admin"></i>
+                  <i class="bi bi-x exit-icon-admin"></i>
+              </div>
+              <h3 style="margin-bottom: 20px;">Payment history</h3>
+              <div class="table-container">
                 <table>
                     <tr>
                         <th>Payment Date</th>
@@ -107,8 +113,11 @@
 
                 </table>
             </div>
+
+            </div>
         </div>
       </div>
     </section>
+    <script src="../asset/javascript/app.js"></script>
 </body>
 </html>

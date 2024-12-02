@@ -1,0 +1,74 @@
+
+@media screen and (max-width: 980px) {
+    section aside {
+        position: fixed;
+        top: 100px;
+        left: -100%;
+        z-index: 150;
+        width: 250px;
+        transition: left 0.3s ease;
+        margin-left: 20px;
+        height: 73.5vh;
+        border-top-left-radius: 0px;
+    }
+  
+    .admin-menu {
+        margin-right: 0px;
+    }
+    aside.active {
+        left: 0;
+    }
+    
+    .admin-menu {
+        display: flex;
+    }
+    .exit-icon-admin {
+        display: none;
+    }
+    .admin-menu.active .menu-icon-admin {
+        display: none;
+    }
+    .admin-menu.active .exit-icon-admin {
+        display: flex;
+        cursor: pointer;
+    }
+    .right-side{
+        border-radius: 14px;
+        margin-left: 5px;
+        width: 100%;
+    }
+    section .right-side .name{
+        text-align: center;
+
+    }
+    .orders{
+        height: 400px;
+    }
+}
+@media screen and (max-width: 980px) {
+    section aside{
+        height: 90vh;
+    }
+    .profile-section {
+        display: grid;
+        width: 100%;
+    }
+    .profile-card,.profile-edit{
+        flex: 2;
+        max-width: 100%;
+    }
+}
+@media screen and (max-width:453px) {
+    section{
+        margin: 12px;
+    }
+    .profile-card, .profile-edit {
+        padding: 20px;
+    }
+    .right-side {
+        padding: 12px;
+    }
+    section aside{
+        margin-left: 12px;
+    }
+}
